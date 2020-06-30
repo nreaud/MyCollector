@@ -1,0 +1,6 @@
+JSON file Enough, no need database:
+When deserializing the stored current state only to get one manga state, i 
+chosed to read all the json file, then get only what i wanted, i could have 
+stored the data differently (database, noSql, ...) but i chosed not to cause i 
+won't have too many mangas, so no to many datas, reading a small json file is 
+good enough for me

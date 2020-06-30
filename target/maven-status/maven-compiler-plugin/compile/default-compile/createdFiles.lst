@@ -1,0 +1,17 @@
+main\service\Main.class
+main\service\HttpService.class
+main\model\Release.class
+main\service\collector\ReleasesCollector.class
+main\service\parser\LireScanParser.class
+main\service\StateWriterService$1.class
+main\service\mapper\LireScanMapper.class
+main\service\MyCollectorApi.class
+main\service\FileWriterService.class
+main\service\mapper\StateMapper.class
+main\service\StateWriterService$2.class
+main\model\MangaState.class
+main\service\Controller.class
+main\service\StateWriterService.class
+main\model\Manga.class
+main\model\Language.class
+main\service\parser\SixCentsMotsParser.class

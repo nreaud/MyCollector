@@ -1,0 +1,26 @@
+Back-End:
+- Un currentState global et un par site (1 fichier json par state)
+- Aller chercher info sur manganelo, lelscan et mangareader (cf opti)Optimisation:
+- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
+- Reprendre FileWriter
+- Tourner en tâche de fond
+- Étayer currentSate
+	- rythme de parution
+	- prochaine sortie prévue
+	- hype level
+- TUs
+- Sonar (ou autre)
+- Logs
+- API doc
+- Close tomcat when killing process on Eclipse -> TEST si STS plugin fait le TAF
+- Debugger tomcat to make work
+
+Front-End:
+- Afficher à lire
+- TUs
+- Genre Sonar
+	
+Globals:
+- Mettre en ligne (serveur)
+- Mettre sous Github
+

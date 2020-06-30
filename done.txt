@@ -1,0 +1,13 @@
+29/06:
+- APIs
+	- Post currentState
+- DL Eclipse 2020-06
+28/06:
+-Sort mangasStates (après le collector et non avant)
+-API endpoint /up
+27/06:
+- Update json file avec updates
+26/06:
+Back-End:
+- Comparer lireScan avec currentState
+ 	- Maj currentState
