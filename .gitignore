@@ -12,11 +12,9 @@
 *.zip
 *.tar.gz
 *.rar
-build/
 
 #Eclipse related 
 .settings/
-.project
 .classpath
 
-#
+build/
