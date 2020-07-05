@@ -1,9 +1,11 @@
-package main.service;
+package service;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
 
 /**
  * Class to write in files - used for 600 words -> will probably disapear
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
  * @author nicol
  *
  */
+@Service
 public class FileWriterService {
 	// TODO revoir trop spécifique...
 	public static void writeNewContent(String fileName,

@@ -1,4 +1,4 @@
-package main.service;
+package service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,12 +8,15 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Class to make httpCalls
  * 
  * @author nicol
  *
  */
+@Service
 public class HttpService {
 
 	/**

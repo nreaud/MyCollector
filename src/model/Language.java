@@ -1,5 +1,4 @@
-package main.model;
-
+package model;
 /**
  * The language available for manga
  * 

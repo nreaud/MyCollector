@@ -4,16 +4,18 @@ Back-End:
 - Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
 - Reprendre FileWriter
 - Tourner en tâche de fond
-- Étayer currentSate
-	- rythme de parution
-	- prochaine sortie prévue
-	- hype level
-- TUs
+	-> Stratégie par manga
+		- rythme de parution
+		- prochaine sortie prévue
+		- hype level
+- TUs -> next time!
 - Sonar (ou autre)
 - Logs
 - API doc
-- Close tomcat when killing process on Eclipse -> TEST si STS plugin fait le TAF
-- Debugger tomcat to make work
+- Handle Http errors when checking updates (lirescan,...) 
+- Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
+- Thread launcher se coupe bien en même temps que appli? -> test écriture fichier
+- Fichiers props (urls, path files, ...)
 
 Front-End:
 - Afficher à lire
@@ -22,5 +24,4 @@ Front-End:
 	
 Globals:
 - Mettre en ligne (serveur)
-- Mettre sous Github
 

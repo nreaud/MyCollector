@@ -1,4 +1,4 @@
-package main.model;
+package model;
 
 /**
  * List of the mangas i'm interessted in

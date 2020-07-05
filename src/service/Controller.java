@@ -1,13 +1,18 @@
-package main.service;
+package service;
 
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import main.model.Language;
-import main.model.Manga;
-import main.model.MangaState;
+import org.springframework.stereotype.Service;
 
+import model.Language;
+import model.Manga;
+import model.MangaState;
+
+@Service
 public class Controller {
 
 	private static boolean moreRecent(MangaState currentState,
@@ -48,8 +53,9 @@ public class Controller {
 	 * @param updates
 	 * @return current state mis à jour
 	 */
-	public static Map<Manga, MangaState> update(
+	public static Map<Manga, MangaState> updateSorted(
 			Map<Manga, MangaState> myCurrentStates, Map<Manga, MangaState> updates) {
+		BinaryOperator<MangaState> mergerDummy = (v1, v2) -> v1;
 		// Firstly we update the known mangaStates
 		Map<Manga, MangaState> res = myCurrentStates.entrySet().stream()
 				.map(entry -> {
@@ -61,8 +67,7 @@ public class Controller {
 								.setLastAvailableLanguage(newState.getLastAvailableLanguage());
 					}
 					return currentState;
-				}).collect(Collectors.toMap(mangaState -> mangaState.getManga(),
-						mangaState -> mangaState));
+				}).sorted().collect(Collectors.toMap(mangaState -> mangaState.getManga(), mangaState -> mangaState, mergerDummy, TreeMap::new));
 
 		// Then we check if there are new mangas (new interest) to update res -> no
 		// need to set json file on hand

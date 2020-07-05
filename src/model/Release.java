@@ -1,4 +1,4 @@
-package main.model;
+package model;
 
 /**
  * Describe a new state for a manga (mangaName + chapterNumber + language)

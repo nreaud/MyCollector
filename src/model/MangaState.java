@@ -1,4 +1,4 @@
-package main.model;
+package model;
 
 /**
  * This class represent the current state for each manga with the last chapter I
