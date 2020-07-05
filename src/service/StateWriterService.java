@@ -56,9 +56,10 @@ public class StateWriterService {
 
 		Path pathToFile = Paths.get(fileLocation);
 		Files.createDirectories(pathToFile.getParent());
-		Files.createFile(pathToFile);
+		File file = new File(fileLocation);
+		file.createNewFile();
 		// convert map to JSON file
-		writer.writeValue(new File(fileLocation), state);
+		writer.writeValue(file, state);
 	}
 
 	/**
