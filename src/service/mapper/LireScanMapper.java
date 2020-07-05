@@ -1,11 +1,13 @@
-package main.service.mapper;
+package service.mapper;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.model.Language;
-import main.model.Manga;
+import org.springframework.stereotype.Service;
+
+import model.Language;
+import model.Manga;
 
 /**
  * Mapper for lirescan.me, associate manga names with site
@@ -13,6 +15,7 @@ import main.model.Manga;
  * @author nicol
  *
  */
+@Service
 public class LireScanMapper {
 	private static final Map<String, Manga> mangaNames;
 	private static final Map<String, Language> languages;

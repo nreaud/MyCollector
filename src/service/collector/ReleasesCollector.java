@@ -1,4 +1,4 @@
-package main.service.collector;
+package service.collector;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,8 +10,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-import main.model.Manga;
-import main.model.Release;
+import org.springframework.stereotype.Service;
+
+import model.Manga;
+import model.Release;
 
 /**
  * This Collector (for .collect()) can collect different releases into a map of
@@ -20,6 +22,7 @@ import main.model.Release;
  * @author nicol
  *
  */
+@Service
 public class ReleasesCollector
 		implements Collector<Release, Map<Manga, Release>, Map<Manga, Release>> {
 

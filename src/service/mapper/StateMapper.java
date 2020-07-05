@@ -1,13 +1,15 @@
-package main.service.mapper;
+package service.mapper;
 
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import main.model.Manga;
-import main.model.MangaState;
-import main.model.Release;
+import org.springframework.stereotype.Service;
+
+import model.Manga;
+import model.MangaState;
+import model.Release;
 
 /**
  * Map objet MangaState
@@ -15,6 +17,7 @@ import main.model.Release;
  * @author nicol
  *
  */
+@Service
 public class StateMapper {
 	public static Map<Manga, Release> mapToReleases(
 			Map<Manga, MangaState> state) {

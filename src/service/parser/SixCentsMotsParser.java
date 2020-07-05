@@ -1,4 +1,4 @@
-package main.service.parser;
+package service.parser;
 
 import java.text.Normalizer;
 import java.util.Arrays;

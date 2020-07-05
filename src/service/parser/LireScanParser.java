@@ -1,4 +1,4 @@
-package main.service.parser;
+package service.parser;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -9,10 +9,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import main.model.Manga;
-import main.model.Release;
-import main.service.collector.ReleasesCollector;
-import main.service.mapper.LireScanMapper;
+import model.Manga;
+import model.Release;
+import service.collector.ReleasesCollector;
+import service.mapper.LireScanMapper;
 
 /**
  * Scanner for lireScan.me
@@ -20,33 +20,22 @@ import main.service.mapper.LireScanMapper;
  * @author nicol
  *
  */
-public class LireScanParser {
-	private static Pattern releasePattern = Pattern
-			.compile("Scan ([a-zA-Z0-9 -.]*) ([0-9.]*) VF ?([A-Z]*)");
+public class LireScanParser extends MangaWebSiteParser {
+	private Pattern releasePattern = Pattern.compile("Scan ([a-zA-Z0-9 -.]*) ([0-9.]*) VF ?([A-Z]*)");
 
-	public static Map<Manga, Release> parse(String htmlContent) {
+	@Override
+	public Map<Manga, Release> parse(String htmlContent) {
 		Document doc = Jsoup.parse(htmlContent.toString());
 		Element releasesContainer = doc.getElementById("releases");
 		Elements releases = releasesContainer.getAllElements();
 
 		return releases.stream().filter(release -> release.tagName().equals("li")) // The
-																																								// releases
-																																								// are
-																																								// stored
-																																								// under
-																																								// <li>
-																																								// tags
-				.map(release -> release.text()) // The releases informations are stored
-																				// like text
-				.map(release -> mapToReleaseObject(release)) // Cf mapToReleaseObject
-				.filter(release -> !release.getManga().equals(Manga.UNKNOWN)) // Manga
-																																			// not in
-																																			// my Enum
-																																			// dont
-																																			// intersest
-																																			// me, so
-																																			// filtered
-				.collect(ReleasesCollector.getInstance()); // Cf ReleasesCollector
+		    // releases are stored under <li> tags
+		    .map(release -> release.text()) // The releases informations are stored
+		    // like text
+		    .map(release -> mapToReleaseObject(release)) // Cf mapToReleaseObject
+		    .filter(release -> !release.getManga().equals(Manga.UNKNOWN)) // Manga not in my Enum dont intersest me, sofiltered
+		    .collect(ReleasesCollector.getInstance()); // Cf ReleasesCollector
 
 	}
 
@@ -56,7 +45,7 @@ public class LireScanParser {
 	 * @param releaseStr
 	 * @return
 	 */
-	private static Release mapToReleaseObject(String releaseStr) {
+	private Release mapToReleaseObject(String releaseStr) {
 		Matcher matcher = releasePattern.matcher(releaseStr);
 		Release release = new Release();
 		if (matcher.matches()) {
