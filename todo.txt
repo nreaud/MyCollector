@@ -1,21 +1,21 @@
 Back-End:
 - Un currentState global et un par site (1 fichier json par state)
-- Aller chercher info sur manganelo, lelscan et mangareader (cf opti)Optimisation:
-- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
+- Aller chercher info sur manganelo, lelscan et mangareader (cf opti)
+- Optimisation:
+	- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
 - Reprendre FileWriter
-- Tourner en tâche de fond
-	-> Stratégie par manga
-		- rythme de parution
-		- prochaine sortie prévue
-		- hype level
-- TUs -> next time!
-- Sonar (ou autre)
+- Stratégie par manga
+	- rythme de parution
+	- prochaine sortie prévue
+	- hype level
+- TUs à finir
 - Logs
 - API doc
 - Handle Http errors when checking updates (lirescan,...) 
 - Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
 - Thread launcher se coupe bien en même temps que appli? -> test écriture fichier
 - Fichiers props (urls, path files, ...)
+- Pb logging -> logging file not read  (log doesnt match)
 
 Front-End:
 - Afficher à lire

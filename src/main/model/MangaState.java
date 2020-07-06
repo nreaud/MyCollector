@@ -21,8 +21,7 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastAvailableLanguage = Language.SPOIL;
 	}
 
-	public MangaState(Manga manga, Short lastAvailable,
-			Language lastAvailableLanguage) {
+	public MangaState(Manga manga, Short lastAvailable, Language lastAvailableLanguage) {
 		this.manga = manga;
 		this.lastAvailable = lastAvailable;
 		this.lastAvailableLanguage = lastAvailableLanguage;
@@ -62,9 +61,8 @@ public class MangaState implements Comparable<MangaState> {
 
 	@Override
 	public String toString() {
-		return "State [manga=" + manga + ", lastRead=" + lastRead
-				+ ", lastAvailable=" + lastAvailable + ", lastAvailableLanguage="
-				+ lastAvailableLanguage + "]";
+		return "State [manga=" + manga + ", lastRead=" + lastRead + ", lastAvailable=" + lastAvailable
+		    + ", lastAvailableLanguage=" + lastAvailableLanguage + "]";
 	}
 
 	@Override
@@ -78,11 +76,10 @@ public class MangaState implements Comparable<MangaState> {
 			if (this.manga != other.manga) {
 				res = this.manga.compareTo(other.manga); // ordered by name
 			} else { // same manga
-				if (this.lastAvailable != other.lastAvailable) {
+				if (!this.lastAvailable.equals(other.lastAvailable)) {
 					res = this.lastAvailable - other.lastAvailable;
 				} else { // same chapter number
-					res = this.lastAvailableLanguage
-							.compareTo(other.lastAvailableLanguage);
+					res = this.lastAvailableLanguage.compareTo(other.lastAvailableLanguage);
 				}
 			}
 		}

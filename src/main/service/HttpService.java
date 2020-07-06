@@ -27,8 +27,7 @@ public class HttpService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String getContent(String urlStr, boolean isHttps)
-			throws IOException {
+	public static String getContent(String urlStr, boolean isHttps) throws IOException {
 		URL url = new URL(urlStr);
 		HttpURLConnection con;
 		if (isHttps) {
@@ -39,14 +38,12 @@ public class HttpService {
 		// call
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Content-Type", "application/json");
-		con.addRequestProperty("User-Agent",
-				"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:221.0) Gecko/20100101 Firefox/31.0");
+		con.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:221.0) Gecko/20100101 Firefox/31.0");
 
 		// response
-		BufferedReader in = new BufferedReader(
-				new InputStreamReader(con.getInputStream(), "UTF-8"));
+		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 		String inputLine;
-		StringBuffer content = new StringBuffer();
+		StringBuilder content = new StringBuilder();
 		while ((inputLine = in.readLine()) != null) {
 			content.append(inputLine);
 		}

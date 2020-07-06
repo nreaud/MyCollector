@@ -11,6 +11,7 @@ import service.thread.UpdaterLauncherThread;
 public class Main {
 
 	public static void main(String[] args) {
+
 		Thread updaterLauncherThread = new UpdaterLauncherThread();
 		updaterLauncherThread.start();
 

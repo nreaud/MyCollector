@@ -25,7 +25,7 @@ import service.parser.MangaWebSiteParser;
 @PrepareForTest(fullyQualifiedNames = "service.*")
 public class UpdaterServiceTest {
 
-	final String FILE_LOCATION = "src/test/resource/test.json";
+	final String FILE_LOCATION = "src/test/resources/test.json";
 	final String DUMMY_URL = "any";
 	String dummyHtmlContent = "dummyHtmlContent";
 

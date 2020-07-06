@@ -18,7 +18,7 @@ import model.MangaState;
 @RestController
 public class MyCollectorApi {
 
-	private static final String PATH_MY_CURRENT_STATE = "src/main/resource/mangaState.json";
+	private static final String PATH_MY_CURRENT_STATE = "src/main/resources/mangaState.json";
 
 	@GetMapping("/up")
 	public boolean isUp() {
@@ -26,27 +26,23 @@ public class MyCollectorApi {
 	}
 
 	@GetMapping("/mangaStates")
-	public Map<Manga, MangaState> getMangaStates()
-			throws JsonParseException, JsonMappingException, IOException {
+	public Map<Manga, MangaState> getMangaStates() throws JsonParseException, JsonMappingException, IOException {
 
 		return StateWriterService.readCurrentStateSorted(PATH_MY_CURRENT_STATE);
 	}
 
 	@PostMapping("/mangaStates/{manga}/lastRead/{lastRead}")
-	public MangaState postLastRead(@PathVariable("manga") Manga manga,
-			@PathVariable("lastRead") Short lastRead)
-			throws JsonParseException, JsonMappingException, IOException {
+	public MangaState postLastRead(@PathVariable("manga") Manga manga, @PathVariable("lastRead") Short lastRead)
+	    throws JsonParseException, JsonMappingException, IOException {
 
 		MangaState res = new MangaState();
-		TreeMap<Manga, MangaState> currentState = StateWriterService
-				.readCurrentStateSorted(PATH_MY_CURRENT_STATE);
+		TreeMap<Manga, MangaState> currentState = StateWriterService.readCurrentStateSorted(PATH_MY_CURRENT_STATE);
 		if (currentState.containsKey(manga)) {
 			MangaState currentMangaState = currentState.get(manga);
 			if (currentMangaState.getLastRead() < lastRead) {
 				currentMangaState.setLastRead(lastRead);
 				currentState.put(manga, currentMangaState);
-				StateWriterService.writeCurrentState(currentState,
-						PATH_MY_CURRENT_STATE);
+				StateWriterService.writeCurrentState(currentState, PATH_MY_CURRENT_STATE);
 				res = currentMangaState;
 			}
 		} else {

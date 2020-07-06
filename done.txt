@@ -1,3 +1,5 @@
+06/07:
+Sonar
 02/07:
 - début threads
 - TU working
