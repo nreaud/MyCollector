@@ -23,8 +23,7 @@ import model.Release;
  *
  */
 @Service
-public class ReleasesCollector
-		implements Collector<Release, Map<Manga, Release>, Map<Manga, Release>> {
+public class ReleasesCollector implements Collector<Release, Map<Manga, Release>, Map<Manga, Release>> {
 
 	private ReleasesCollector() {
 		// hidden
@@ -61,8 +60,7 @@ public class ReleasesCollector
 				if (!merged.containsKey(entry.getKey())) {
 					merged.put(entry.getKey(), entry.getValue());
 				} else {
-					if (entry.getValue().getNumber() > merged.get(entry.getKey())
-							.getNumber()) {
+					if (entry.getValue().getNumber() > merged.get(entry.getKey()).getNumber()) {
 						merged.put(entry.getKey(), entry.getValue());
 					}
 				}

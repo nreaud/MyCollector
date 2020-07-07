@@ -16,6 +16,7 @@ Back-End:
 - Thread launcher se coupe bien en même temps que appli? -> test écriture fichier
 - Fichiers props (urls, path files, ...)
 - Pb logging -> logging file not read  (log doesnt match)
+- Pb formatter GitKraken
 
 Front-End:
 - Afficher à lire

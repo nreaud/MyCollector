@@ -1,5 +1,7 @@
 package service.thread;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import service.parser.LireScanParser;
@@ -7,21 +9,25 @@ import service.parser.LireScanParser;
 @Component
 public class UpdaterLauncherThread extends Thread {
 
-	private final int SECOND_SLEEPING = 30;
-	private final String URL_LIRESCAN = "https://www.lirescan.me/";
-	private final String PATH_MY_CURRENT_STATE = "src/resource/mangaState.json";
+	private final Logger logger = LogManager.getLogger(UpdaterLauncherThread.class);
+
+	private static final int SECONDS_SLEEPING = 30;
+	private static final String URL_LIRESCAN = "https://www.lirescan.me/";
+	private static final String PATH_MY_CURRENT_STATE = "src/main/resources/mangaState.json";
 
 	@Override
 	public void run() {
-		System.out.println("Actuator launcher running");
+		logger.info("Updater launcher running");
 		do {
 			try {
 				Thread updaterThread = new UpdaterThread(URL_LIRESCAN, PATH_MY_CURRENT_STATE, new LireScanParser());
 				updaterThread.start();
-				UpdaterLauncherThread.sleep(SECOND_SLEEPING * 1000);
+				Thread.sleep(SECONDS_SLEEPING * 1000L); //sleep self
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.debug(e.toString());
+				Thread.currentThread().interrupt();
+				UpdaterLauncherThread newInstance = new UpdaterLauncherThread();
+				newInstance.start();
 			}
 		} while (true);
 	}

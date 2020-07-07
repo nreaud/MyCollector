@@ -2,30 +2,36 @@ package service.thread;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import service.UpdaterService;
 import service.parser.MangaWebSiteParser;
 
 public class UpdaterThread extends Thread {
 
-	private final String URL;
-	private final String PATH_MY_CURRENT_STATE;
-	private final MangaWebSiteParser PARSER;
+	private final String url;
+	private final String pathMyCurrentState;
+	private final MangaWebSiteParser parser;
 
-	private static final Logger logger = LoggerFactory.getLogger(UpdaterThread.class);
+	private static final Logger logger = LogManager.getLogger(UpdaterThread.class);
 
-	public UpdaterThread(final String URL, final String PATH_MY_CURRENT_STATE, final MangaWebSiteParser PARSER) {
-		this.URL = URL;
-		this.PATH_MY_CURRENT_STATE = PATH_MY_CURRENT_STATE;
-		this.PARSER = PARSER;
+	public UpdaterThread(final String url, final String pathMyCurrentState, final MangaWebSiteParser parser) {
+		this.url = url;
+		this.pathMyCurrentState = pathMyCurrentState;
+		this.parser = parser;
 	}
 
 	@Override
 	public void run() {
+		logger.debug("Updater thread launched");
+		if (!logger.isDebugEnabled()) {
+			logger.info("I thought it would be enabled");
+		} else {
+			logger.info("Indeed enabled");
+		}
 		try {
-			UpdaterService updaterService = new UpdaterService(URL, PATH_MY_CURRENT_STATE, PARSER);
+			UpdaterService updaterService = new UpdaterService(url, pathMyCurrentState, parser);
 			updaterService.update();
 		} catch (IOException e) {
 			logger.debug(e.toString());
