@@ -9,7 +9,11 @@ Back-End:
 	- prochaine sortie prévue
 	- hype level
 - TUs à finir
+- Couverture 90%
+- SonarLint sur tout le code 
 - API doc
+- API mature?
+- Design Pattern?
 - Handle Http errors when checking updates (lirescan,...) 
 - Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
 - Thread launcher se coupe bien en même temps que appli? -> test écriture fichier

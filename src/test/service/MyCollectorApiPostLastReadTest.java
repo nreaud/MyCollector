@@ -29,10 +29,10 @@ import utils.MangaTestUtils;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
-@TestPropertySource(properties = "mangaState.currentState=src/test/resources/MyCollectorApiGetLastReadTest.json")
-public class MyCollectorApiGetLastReadTest {
+@TestPropertySource(properties = "mangaState.currentState=src/test/resources/MyCollectorApiPostLastReadTest.json")
+public class MyCollectorApiPostLastReadTest {
 
-	final String FILE_LOCATION = "src/test/resources/MyCollectorApiGetLastReadTest.json";
+	final String FILE_LOCATION = "src/test/resources/MyCollectorApiPostLastReadTest.json";
 
 	@Autowired
 	private MockMvc mvc;
@@ -66,16 +66,28 @@ public class MyCollectorApiGetLastReadTest {
 
 	@Test
 	public void lastReadAlreadyReadTest() throws Exception {
+		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/251").contentType(MediaType.APPLICATION_JSON))
+		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
+		    .andExpect(jsonPath("$.lastRead", is(251))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 
 	}
 
 	@Test
 	public void lastReadButNotLasAvailable() throws Exception {
+		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/250").contentType(MediaType.APPLICATION_JSON))
+		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
+		    .andExpect(jsonPath("$.lastRead", is(251))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 
 	}
 
 	@Test
 	public void lastReadNotAvailableYet() throws Exception {
+		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/253").contentType(MediaType.APPLICATION_JSON))
+		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
+		    .andExpect(jsonPath("$.lastRead", is(251))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 
 	}
 
