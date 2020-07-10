@@ -1,0 +1,3 @@
+mangastate:
+  currentState: src/main/resources/mangaState.json
+  lireScanState: src/main/resources/mangaState.json

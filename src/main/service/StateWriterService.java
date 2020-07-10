@@ -7,11 +7,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -31,24 +31,25 @@ import model.MangaState;
 @Service
 public class StateWriterService {
 
-	public static Map<Manga, MangaState> readCurrentState(String fileLocation)
-	    throws JsonParseException, JsonMappingException, IOException {
+	private StateWriterService() {
+		//hidden
+	}
+
+	public static Map<Manga, MangaState> readCurrentState(String fileLocation) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		TypeReference<Map<Manga, MangaState>> typeRef = new TypeReference<Map<Manga, MangaState>>() {
 		}; // cause can't have .class from generic
 		return objectMapper.readValue(new File(fileLocation), typeRef);
 	}
 
-	public static TreeMap<Manga, MangaState> readCurrentStateSorted(String fileLocation)
-	    throws JsonParseException, JsonMappingException, IOException {
+	public static SortedMap<Manga, MangaState> readCurrentStateSorted(String fileLocation) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		TypeReference<TreeMap<Manga, MangaState>> typeRef = new TypeReference<TreeMap<Manga, MangaState>>() {
 		}; // cause can't have .class from generic
 		return objectMapper.readValue(new File(fileLocation), typeRef);
 	}
 
-	public static void writeCurrentState(Map<Manga, MangaState> state, String fileLocation)
-	    throws JsonGenerationException, JsonMappingException, IOException {
+	public static void writeCurrentState(Map<Manga, MangaState> state, String fileLocation) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// create an instance of DefaultPrettyPrinter
@@ -72,8 +73,7 @@ public class StateWriterService {
 	 * @throws JsonMappingException
 	 * @throws IOException
 	 */
-	public static Optional<MangaState> readCurrentMangaState(String pathMyCurrentState, Manga manga)
-	    throws JsonParseException, JsonMappingException, IOException {
+	public static Optional<MangaState> readCurrentMangaState(String pathMyCurrentState, Manga manga) throws IOException {
 		Map<Manga, MangaState> currentState = readCurrentState(pathMyCurrentState);
 		Optional<MangaState> res;
 		if (currentState.containsKey(manga)) {

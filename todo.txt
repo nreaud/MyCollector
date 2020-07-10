@@ -9,14 +9,13 @@ Back-End:
 	- prochaine sortie prévue
 	- hype level
 - TUs à finir
-- Logs
 - API doc
 - Handle Http errors when checking updates (lirescan,...) 
 - Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
 - Thread launcher se coupe bien en même temps que appli? -> test écriture fichier
 - Fichiers props (urls, path files, ...)
 - Pb logging -> logging file not read  (log doesnt match)
-- Pb formatter GitKraken
+- Pb formatter GitKraken??
 
 Front-End:
 - Afficher à lire

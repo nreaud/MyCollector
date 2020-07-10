@@ -1,6 +1,6 @@
 package service.collector;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class ReleasesCollector implements Collector<Release, Map<Manga, Release>
 
 	@Override
 	public Supplier<Map<Manga, Release>> supplier() {
-		return () -> new HashMap<Manga, Release>();
+		return () -> new EnumMap<>(Manga.class);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class ReleasesCollector implements Collector<Release, Map<Manga, Release>
 	@Override
 	public BinaryOperator<Map<Manga, Release>> combiner() {
 		return (left, right) -> {
-			Map<Manga, Release> merged = new HashMap<>(left);
+			Map<Manga, Release> merged = new EnumMap<>(left);
 			right.entrySet().stream().forEach(entry -> {
 				if (!merged.containsKey(entry.getKey())) {
 					merged.put(entry.getKey(), entry.getValue());
@@ -71,7 +71,7 @@ public class ReleasesCollector implements Collector<Release, Map<Manga, Release>
 
 	@Override
 	public Function<Map<Manga, Release>, Map<Manga, Release>> finisher() {
-		return (list) -> list;
+		return list -> list;
 	}
 
 	@Override

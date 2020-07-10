@@ -27,6 +27,13 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastAvailableLanguage = lastAvailableLanguage;
 	}
 
+	public MangaState(Manga manga, Short lastRead, Short lastAvailable, Language lastAvailableLanguage) {
+		this.manga = manga;
+		this.lastRead = lastRead;
+		this.lastAvailable = lastAvailable;
+		this.lastAvailableLanguage = lastAvailableLanguage;
+	}
+
 	public Manga getManga() {
 		return manga;
 	}

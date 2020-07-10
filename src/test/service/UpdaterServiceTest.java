@@ -20,18 +20,19 @@ import model.Manga;
 import model.MangaState;
 import model.Release;
 import service.parser.MangaWebSiteParser;
+import utils.MangaTestUtils;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(fullyQualifiedNames = "service.*")
 public class UpdaterServiceTest {
 
-	final String FILE_LOCATION = "src/test/resources/test.json";
+	final String FILE_LOCATION = "src/test/resources/updaterServiceTest.json";
 	final String DUMMY_URL = "any";
 	String dummyHtmlContent = "dummyHtmlContent";
 
 	@Before
 	public void initBeforeEach() throws IOException {
-		Map<Manga, MangaState> initState = getInitState();
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitState();
 		StateWriterService.writeCurrentState(initState, FILE_LOCATION);
 	}
 
@@ -97,15 +98,6 @@ public class UpdaterServiceTest {
 		assertEquals(new Short((short) 252), bl.getLastAvailable());
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
-	}
-
-	private Map<Manga, MangaState> getInitState() {
-		Map<Manga, MangaState> res = new HashMap<>();
-		//AJIN - test update language
-		res.put(Manga.AJIN, new MangaState(Manga.AJIN, (short) 77, Language.ENGLISH));
-		//BLACK CLOVER - test update number
-		res.put(Manga.BLACK_CLOVER, new MangaState(Manga.BLACK_CLOVER, (short) 252, Language.FRENCH));
-		return res;
 	}
 
 	private Map<Manga, Release> getMapReleases() {
