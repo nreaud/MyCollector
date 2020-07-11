@@ -1,10 +1,10 @@
-package service.thread;
+package com.nre.mycollector.service.thread;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import service.parser.LireScanParser;
+import com.nre.mycollector.service.parser.LireScanParser;
 
 @Component
 public class UpdaterLauncherThread extends Thread {

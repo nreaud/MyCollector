@@ -1,9 +1,9 @@
-package service.parser;
+package com.nre.mycollector.service.parser;
 
 import java.util.Map;
 
-import model.Manga;
-import model.Release;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.Release;
 
 public abstract class MangaWebSiteParser {
 

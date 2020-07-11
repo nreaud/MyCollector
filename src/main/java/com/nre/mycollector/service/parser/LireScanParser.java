@@ -1,4 +1,4 @@
-package service.parser;
+package com.nre.mycollector.service.parser;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -9,10 +9,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import model.Manga;
-import model.Release;
-import service.collector.ReleasesCollector;
-import service.mapper.LireScanMapper;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.Release;
+import com.nre.mycollector.service.collector.ReleasesCollector;
+import com.nre.mycollector.service.mapper.LireScanMapper;
 
 /**
  * Scanner for lireScan.me

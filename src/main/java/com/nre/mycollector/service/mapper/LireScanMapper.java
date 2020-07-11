@@ -1,4 +1,4 @@
-package service.mapper;
+package com.nre.mycollector.service.mapper;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import model.Language;
-import model.Manga;
+import com.nre.mycollector.model.Language;
+import com.nre.mycollector.model.Manga;
 
 /**
  * Mapper for lirescan.me, associate manga names with site

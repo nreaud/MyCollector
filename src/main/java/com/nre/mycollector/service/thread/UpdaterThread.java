@@ -1,12 +1,12 @@
-package service.thread;
+package com.nre.mycollector.service.thread;
 
 import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import service.UpdaterService;
-import service.parser.MangaWebSiteParser;
+import com.nre.mycollector.service.UpdaterService;
+import com.nre.mycollector.service.parser.MangaWebSiteParser;
 
 public class UpdaterThread extends Thread {
 

@@ -1,4 +1,4 @@
-package service.parser;
+package com.nre.mycollector.service.parser;
 
 import java.text.Normalizer;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package service.collector;
+package com.nre.mycollector.service.collector;
 
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -12,8 +12,8 @@ import java.util.stream.Collector;
 
 import org.springframework.stereotype.Service;
 
-import model.Manga;
-import model.Release;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.Release;
 
 /**
  * This Collector (for .collect()) can collect different releases into a map of

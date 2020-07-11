@@ -1,4 +1,4 @@
-package service.mapper;
+package com.nre.mycollector.service.mapper;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import model.Manga;
-import model.MangaState;
-import model.Release;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.model.Release;
 
 /**
  * Map objet MangaState
