@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import java.io.FileWriter;
 import java.io.IOException;

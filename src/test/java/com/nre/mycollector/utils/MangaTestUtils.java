@@ -1,11 +1,11 @@
-package utils;
+package com.nre.mycollector.utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Language;
-import model.Manga;
-import model.MangaState;
+import com.nre.mycollector.model.Language;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
 
 public class MangaTestUtils {
 

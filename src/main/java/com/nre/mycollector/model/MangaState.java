@@ -1,4 +1,4 @@
-package model;
+package com.nre.mycollector.model;
 
 /**
  * This class represent the current state for each manga with the last chapter I

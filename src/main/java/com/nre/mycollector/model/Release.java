@@ -1,4 +1,4 @@
-package model;
+package com.nre.mycollector.model;
 
 /**
  * Describe a new state for a manga (mangaName + chapterNumber + language)

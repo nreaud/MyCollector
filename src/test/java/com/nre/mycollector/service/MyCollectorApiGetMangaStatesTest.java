@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -21,14 +21,14 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import model.Language;
-import model.Manga;
-import model.MangaState;
-import utils.MangaTestUtils;
+import com.nre.mycollector.model.Language;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.utils.MangaTestUtils;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
-@TestPropertySource(properties = "mangaState.currentState=src/test/resources/MyCollectorApiGetMangaStatesTest.json")
+@TestPropertySource(properties = "currentState=src/test/resources/MyCollectorApiGetMangaStatesTest.json")
 public class MyCollectorApiGetMangaStatesTest {
 
 	final String FILE_LOCATION = "src/test/resources/MyCollectorApiGetMangaStatesTest.json";
@@ -58,7 +58,7 @@ public class MyCollectorApiGetMangaStatesTest {
 	public void getMangaStatesTest() throws Exception {
 		mvc.perform(get("/mangaStates").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 		    .andExpect(jsonPath("$.AJIN.manga", is(Manga.AJIN.name())))
-		    .andExpect(jsonPath("$.AJIN.lastRead", is((Manga) null))).andExpect(jsonPath("$.AJIN.lastAvailable", is(77)))
+		    .andExpect(jsonPath("$.AJIN.lastRead", is((Short) null))).andExpect(jsonPath("$.AJIN.lastAvailable", is(77)))
 		    .andExpect(jsonPath("$.AJIN.lastAvailableLanguage", is(Language.ENGLISH.name())))
 		    .andExpect(jsonPath("$.BLACK_CLOVER.manga", is(Manga.BLACK_CLOVER.name())))
 		    .andExpect(jsonPath("$.BLACK_CLOVER.lastRead", is(251)))

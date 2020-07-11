@@ -1,4 +1,4 @@
-package model;
+package com.nre.mycollector.model;
 
 /**
  * List of the mangas i'm interessted in

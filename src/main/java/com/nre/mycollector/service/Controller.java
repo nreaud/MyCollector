@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import model.Language;
-import model.Manga;
-import model.MangaState;
+import com.nre.mycollector.model.Language;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
 
 @Service
 public class Controller {

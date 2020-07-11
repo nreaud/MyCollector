@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import static org.junit.Assert.assertEquals;
 
@@ -15,15 +15,15 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import model.Language;
-import model.Manga;
-import model.MangaState;
-import model.Release;
-import service.parser.MangaWebSiteParser;
-import utils.MangaTestUtils;
+import com.nre.mycollector.model.Language;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.model.Release;
+import com.nre.mycollector.service.parser.MangaWebSiteParser;
+import com.nre.mycollector.utils.MangaTestUtils;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(fullyQualifiedNames = "service.*")
+@PrepareForTest(fullyQualifiedNames = "com.nre.mycollector.service.*")
 public class UpdaterServiceTest {
 
 	final String FILE_LOCATION = "src/test/resources/updaterServiceTest.json";

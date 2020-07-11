@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,14 +22,14 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import model.Language;
-import model.Manga;
-import model.MangaState;
-import utils.MangaTestUtils;
+import com.nre.mycollector.model.Language;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.utils.MangaTestUtils;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
-@TestPropertySource(properties = "mangaState.currentState=src/test/resources/MyCollectorApiPostLastReadTest.json")
+@TestPropertySource(properties = "currentstate=src/test/resources/MyCollectorApiPostLastReadTest.json")
 public class MyCollectorApiPostLastReadTest {
 
 	final String FILE_LOCATION = "src/test/resources/MyCollectorApiPostLastReadTest.json";

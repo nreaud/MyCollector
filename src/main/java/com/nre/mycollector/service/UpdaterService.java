@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import java.io.IOException;
 import java.util.Map;
@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import model.Manga;
-import model.MangaState;
-import model.Release;
-import service.mapper.StateMapper;
-import service.parser.MangaWebSiteParser;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.model.Release;
+import com.nre.mycollector.service.mapper.StateMapper;
+import com.nre.mycollector.service.parser.MangaWebSiteParser;
 
 public class UpdaterService {
 

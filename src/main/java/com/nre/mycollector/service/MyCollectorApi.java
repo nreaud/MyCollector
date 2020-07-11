@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Manga;
-import model.MangaState;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
 
 @RestController
 public class MyCollectorApi {
 
-	@Value("${mangaState.currentState}")
+	//TODO - try spring way (config class)
+	@Value("${currentstate}")
 	private String pathMyCurrentState;
 
 	private static final Logger LOGGER = LogManager.getLogger(MyCollectorApi.class.getName());

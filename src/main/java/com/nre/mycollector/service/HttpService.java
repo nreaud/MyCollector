@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,5 @@
-package model;
+package com.nre.mycollector.model;
+
 /**
  * The language available for manga
  * 
@@ -8,8 +9,7 @@ package model;
 public enum Language {
 	SPOIL, RAW, ENGLISH, FRENCH; // ordered from "less ready" to "most ready"
 
-	public static boolean moreRecent(Language newLanguage,
-			Language currentLanguage) {
+	public static boolean moreRecent(Language newLanguage, Language currentLanguage) {
 		return newLanguage.ordinal() > currentLanguage.ordinal();
 	}
 }

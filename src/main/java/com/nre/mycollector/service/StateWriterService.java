@@ -1,4 +1,4 @@
-package service;
+package com.nre.mycollector.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +18,8 @@ import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-
-import model.Manga;
-import model.MangaState;
+import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaState;
 
 /**
  * This class load and unload MangaState from a json file
