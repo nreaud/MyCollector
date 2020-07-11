@@ -29,7 +29,7 @@ import com.nre.mycollector.utils.MangaTestUtils;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
-@TestPropertySource(properties = "currentstate=src/test/resources/MyCollectorApiPostLastReadTest.json")
+@TestPropertySource(properties = "path.mangastate.currentstate=src/test/resources/MyCollectorApiPostLastReadTest.json")
 public class MyCollectorApiPostLastReadTest {
 
 	final String FILE_LOCATION = "src/test/resources/MyCollectorApiPostLastReadTest.json";

@@ -18,8 +18,7 @@ import com.nre.mycollector.model.MangaState;
 @RestController
 public class MyCollectorApi {
 
-	//TODO - try spring way (config class)
-	@Value("${currentstate}")
+	@Value("${path.mangastate.currentstate}")
 	private String pathMyCurrentState;
 
 	private static final Logger LOGGER = LogManager.getLogger(MyCollectorApi.class.getName());

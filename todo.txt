@@ -1,31 +1,47 @@
+Next time : pb chargement nvelles props
+Progress: todo etoffer + toutes les props dans yml (bug pour l'instant)
+-----------------
 Back-End:
-- Un currentState global et un par site (1 fichier json par state)
-- Aller chercher info sur manganelo, lelscan et mangareader (cf opti)
-- Optimisation:
-	- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
-- Reprendre FileWriter
-- Stratégie par manga
-	- rythme de parution
-	- prochaine sortie prévue
-	- hype level
-- TUs à finir
-- Couverture 90%
-- SonarLint sur tout le code 
-- API doc
-- API mature?
-- Design Pattern?
-- Handle Http errors when checking updates (lirescan,...) 
-- Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
-- Thread launcher se coupe bien en même temps que appli? -> test écriture fichier
-- Fichiers props (urls, path files, ...)
-- Pb logging -> logging file not read  (log doesnt match)
-- Pb formatter GitKraken??
+-FonctionnalitÃ©s (33%):
+	- Pour les sites ne pas avoir besoin d'Ã©crire parseur spÃ©cifique mais dev algo qui "cherche" tout seul
+	- Aller chercher info sur manganelo, lelscan et mangareader
+	- Un currentState global et un par site (1 fichier json par state)
+	- StratÃ©gie de maj par manga
+		- rythme de parution
+		- prochaine sortie prÃ©vue
+		- hype level
+	- mangas et langages chargÃ©s dynamiquements depuis ficher de prop
+	- (Optionel) Ajouter nouveau site source, simplement en ajoutant une url dans un fichier de props
+		
+-Optis/Corrections(5jh):
+	- Handle Http errors when checking updates (lirescan,...) 
+	- Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
+	- Thread launcher se coupe bien en mÃªme temps que appli? -> test Ã©criture fichier
+	- Pb logging -> logging file not read  (log doesnt match)
+	- Reprendre FileWriter
+	- Possible d'avoir @Value variables final?
+	- gÃ©rer les //TODO
+	- git hook before commit: maven clean install (with tests) + run ok
+		
+- Clean Code(60%):
+	- Couverture Test 90%
+	- SonarLint sur tout le code 
+	- Fichiers props (urls, path files, ...) -> complÃ©ter
+	
+- Projet mature: (5%)
+	- API mature?
+	- Design Pattern?
+	- API doc
+	- Doc fonctionnelle
+	- Doc github
+	- Lister chaque catï¿½gorie de todoList finies (pour prÃ©sentation projet)
 
+---------------------------------------------------------------------
 Front-End:
-- Afficher à lire
+- Afficher Ã  lire
 - TUs
 - Genre Sonar
 	
 Globals:
 - Mettre en ligne (serveur)
-
+- 

@@ -45,7 +45,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>service.Main</mainClass>
+					<mainClass>com.nre.mycollector.service.Main</mainClass>
 				</configuration>
 				<version>2.3.1.RELEASE</version>
 			</plugin>

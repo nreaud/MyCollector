@@ -17,6 +17,7 @@ import org.jsoup.select.Elements;
  * @author nicol
  *
  */
+//TODO - deprecated
 public class SixCentsMotsParser {
 
 	private static final List<String> BLACK_LIST = Arrays.asList("MERDE", "PUTAIN");

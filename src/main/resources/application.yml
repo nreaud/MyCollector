@@ -1,0 +1,13 @@
+path:
+  mangastate:
+    currentstate: src/main/resources/mangaState.json
+    lirescanstate: src/main/resources/mangaState.json
+    
+thread:
+  minutesbeforenewupdate:
+    lirescan: 0.5
+  
+url:
+  mangawebsite:
+    lirescan: https://www.lirescan.me/
+    
