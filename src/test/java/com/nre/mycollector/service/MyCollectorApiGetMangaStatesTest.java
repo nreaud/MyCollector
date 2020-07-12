@@ -28,23 +28,22 @@ import com.nre.mycollector.utils.MangaTestUtils;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
-@TestPropertySource(properties = "path.mangastate.currentState=src/test/resources/MyCollectorApiGetMangaStatesTest.json")
+@TestPropertySource(properties = "path.mangastate.currentState=src/test/resources/apiGetMangaStatesCurrentStateTest.json")
 public class MyCollectorApiGetMangaStatesTest {
 
-	final String FILE_LOCATION = "src/test/resources/MyCollectorApiGetMangaStatesTest.json";
-
+	final String CURRENT_STATE = "src/test/resources/apiGetMangaStatesCurrentStateTest.json";
 	@Autowired
 	private MockMvc mvc;
 
 	@Before
 	public void initBeforeEach() throws IOException {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitState();
-		StateWriterService.writeCurrentState(initState, FILE_LOCATION);
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 	}
 
 	@After
 	public void afterEach() {
-		File file = new File(FILE_LOCATION);
+		File file = new File(CURRENT_STATE);
 		file.delete();
 	}
 

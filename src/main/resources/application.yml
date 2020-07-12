@@ -1,7 +1,7 @@
 path:
   mangastate:
     currentstate: src/main/resources/mangaState.json
-    lirescanstate: src/main/resources/mangaState.json
+    lirescanstate: src/main/resources/lirescanState.json
     
 thread:
   minutesbeforenewupdate:

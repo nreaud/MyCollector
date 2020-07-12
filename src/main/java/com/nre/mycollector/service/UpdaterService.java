@@ -2,7 +2,6 @@ package com.nre.mycollector.service;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,17 +11,20 @@ import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.Release;
 import com.nre.mycollector.service.mapper.StateMapper;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
+import com.nre.mycollector.utils.MangaStateUtils;
 
 public class UpdaterService {
 
 	private static final Logger LOGGER = LogManager.getLogger(UpdaterService.class.getName());
 	private final String urlMangaWebSite;
+	private final String pathCurrentStateWebSite;
 	private final String pathMyCurrentState;
 	private final MangaWebSiteParser parser;
 
-	public UpdaterService(final String urlMangaWebSite, final String pathMyCurrentState,
-	    final MangaWebSiteParser parser) {
+	public UpdaterService(final String urlMangaWebSite, final String pathCurrentStateWebSite,
+	    final String pathMyCurrentState, final MangaWebSiteParser parser) {
 		this.urlMangaWebSite = urlMangaWebSite;
+		this.pathCurrentStateWebSite = pathCurrentStateWebSite;
 		this.pathMyCurrentState = pathMyCurrentState;
 		this.parser = parser;
 	}
@@ -31,31 +33,46 @@ public class UpdaterService {
 		String htmlContent = HttpService.getContent(this.urlMangaWebSite);
 
 		Map<Manga, Release> mapLatestReleases = parser.parse(htmlContent);
-
 		Map<Manga, MangaState> latestStates = StateMapper.mapFromReleases(mapLatestReleases);
 
-		LOGGER.info("test log info");
-		if (!LOGGER.isDebugEnabled()) {
-			LOGGER.info("why disabled?");
-		} else {
-			LOGGER.info("Why enabled?!!!");
-		}
-		LOGGER.info("=== Web site current state ===");
-		latestStates.entrySet().stream().peek(entry -> LOGGER.info(entry.toString())).collect(Collectors.toList());
+		//TODO log debug
+		LOGGER.info("=== Web site latest state ===");
+		MangaStateUtils.print(latestStates, LOGGER);
 
-		Map<Manga, MangaState> myCurrentStates = StateWriterService.readCurrentStateSorted(this.pathMyCurrentState);
+		//TODO only Release and not MangaState -> updatesWebSite Release, updates mangastate
+		Map<Manga, MangaState> currentStateWebSite = StateFileService.readCurrentStateSorted(pathCurrentStateWebSite);
+		LOGGER.info("=== Web site current state");
+		MangaStateUtils.print(currentStateWebSite, LOGGER);
 
-		LOGGER.info("=== My current state ===");
-		myCurrentStates.entrySet().stream().peek(entry -> LOGGER.info(entry.toString())).collect(Collectors.toList());
+		Map<Manga, MangaState> updatesWebSite = Controller.getUpdates(currentStateWebSite, latestStates);
+		if (!updatesWebSite.isEmpty()) {
+			//TODO stay info
+			LOGGER.info("=== Updates web site ===");
+			MangaStateUtils.print(updatesWebSite, LOGGER);
 
-		Map<Manga, MangaState> updates = Controller.getUpdates(myCurrentStates, latestStates);
-		if (!updates.isEmpty()) {
-			myCurrentStates = Controller.updateSorted(myCurrentStates, updates);
+			currentStateWebSite = Controller.updateSorted(currentStateWebSite, updatesWebSite);
+			LOGGER.info("=== Web site current state after updated ===");
+			MangaStateUtils.print(currentStateWebSite, LOGGER);
 
-			LOGGER.info("=== My current state after update ===");
-			myCurrentStates.entrySet().stream().peek(entry -> LOGGER.info(entry.toString())).collect(Collectors.toList());
+			StateFileService.writeCurrentState(currentStateWebSite, pathCurrentStateWebSite);
 
-			StateWriterService.writeCurrentState(myCurrentStates, pathMyCurrentState);
+			Map<Manga, MangaState> myCurrentStates = StateFileService.readCurrentStateSorted(this.pathMyCurrentState);
+			LOGGER.info("=== My current state ===");
+			MangaStateUtils.print(myCurrentStates, LOGGER);
+
+			Map<Manga, MangaState> updates = Controller.getUpdates(myCurrentStates, updatesWebSite);
+			if (!updates.isEmpty()) {
+				//TODO stay info
+				LOGGER.info("=== Updates current state ===");
+				MangaStateUtils.print(updates, LOGGER);
+
+				myCurrentStates = Controller.updateSorted(myCurrentStates, updates);
+
+				LOGGER.info("=== My current state after update ===");
+				MangaStateUtils.print(myCurrentStates, LOGGER);
+
+				StateFileService.writeCurrentState(myCurrentStates, pathMyCurrentState);
+			}
 		}
 
 	}

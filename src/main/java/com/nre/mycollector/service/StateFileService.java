@@ -28,9 +28,9 @@ import com.nre.mycollector.model.MangaState;
  *
  */
 @Service
-public class StateWriterService {
+public class StateFileService {
 
-	private StateWriterService() {
+	private StateFileService() {
 		//hidden
 	}
 

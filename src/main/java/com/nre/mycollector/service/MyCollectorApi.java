@@ -35,7 +35,7 @@ public class MyCollectorApi {
 	public Map<Manga, MangaState> getMangaStates() throws IOException {
 		//TODO - should be debug
 		LOGGER.info("Calling getMangaStates");
-		return StateWriterService.readCurrentStateSorted(pathMyCurrentState);
+		return StateFileService.readCurrentStateSorted(pathMyCurrentState);
 	}
 
 	@PostMapping("/mangaStates/{manga}/lastRead/{lastRead}")
@@ -45,13 +45,13 @@ public class MyCollectorApi {
 		LOGGER.info("Calling postLastRead with params: Manga: {} and LastRead: {}", manga, lastRead);
 
 		MangaState res = new MangaState();
-		SortedMap<Manga, MangaState> currentState = StateWriterService.readCurrentStateSorted(pathMyCurrentState);
+		SortedMap<Manga, MangaState> currentState = StateFileService.readCurrentStateSorted(pathMyCurrentState);
 		if (currentState.containsKey(manga)) {
 			MangaState currentMangaState = currentState.get(manga);
 			if (currentMangaState.getLastRead() < lastRead && currentMangaState.getLastAvailable() >= lastRead) {
 				currentMangaState.setLastRead(lastRead);
 				currentState.put(manga, currentMangaState);
-				StateWriterService.writeCurrentState(currentState, pathMyCurrentState);
+				StateFileService.writeCurrentState(currentState, pathMyCurrentState);
 				res = currentMangaState;
 			} else {
 				res = currentMangaState;

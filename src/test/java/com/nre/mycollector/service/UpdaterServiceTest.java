@@ -26,20 +26,26 @@ import com.nre.mycollector.utils.MangaTestUtils;
 @PrepareForTest(fullyQualifiedNames = "com.nre.mycollector.service.*")
 public class UpdaterServiceTest {
 
-	final String FILE_LOCATION = "src/test/resources/updaterServiceTest.json";
+	final String CURRENT_STATE = "src/test/resources/updaterServiceCurrentStateTest.json";
+	final String LIRESCAN_STATE = "src/test/resources/updaterServiceLireScanStateTest.json";
 	final String DUMMY_URL = "any";
 	String dummyHtmlContent = "dummyHtmlContent";
 
 	@Before
 	public void initBeforeEach() throws IOException {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitState();
-		StateWriterService.writeCurrentState(initState, FILE_LOCATION);
+		Map<Manga, MangaState> currentState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(currentState, CURRENT_STATE);
+
+		Map<Manga, MangaState> lireScanState = MangaTestUtils.getInitLireScanState();
+		StateFileService.writeCurrentState(lireScanState, LIRESCAN_STATE);
 	}
 
 	@After
 	public void afterEach() {
-		File file = new File(FILE_LOCATION);
-		file.delete();
+		File currentStateFile = new File(CURRENT_STATE);
+		File lireScanFile = new File(LIRESCAN_STATE);
+		lireScanFile.delete();
+		currentStateFile.delete();
 	}
 
 	@Test
@@ -54,11 +60,11 @@ public class UpdaterServiceTest {
 		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleases());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_URL, FILE_LOCATION, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_URL, LIRESCAN_STATE, CURRENT_STATE, mockParser);
 		updaterService.update();
 
-		//=== EXPECT ===
-		Map<Manga, MangaState> stateAfterUpdate = StateWriterService.readCurrentState(FILE_LOCATION);
+		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
@@ -69,6 +75,19 @@ public class UpdaterServiceTest {
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
 		assertEquals(new Short((short) 253), bl.getLastAvailable());
 		assertEquals(Language.SPOIL, bl.getLastAvailableLanguage());
+
+		//=== LIRESCAN JSON SHOULD BE UPDATED ===
+		Map<Manga, MangaState> lirescanState = StateFileService.readCurrentState(LIRESCAN_STATE);
+		assertEquals(2, lirescanState.size());
+		MangaState ajinLs = stateAfterUpdate.get(Manga.AJIN);
+		assertEquals(Manga.AJIN, ajinLs.getManga());
+		assertEquals(new Short((short) 77), ajinLs.getLastAvailable());
+		assertEquals(Language.FRENCH, ajinLs.getLastAvailableLanguage());
+
+		MangaState blLs = stateAfterUpdate.get(Manga.BLACK_CLOVER);
+		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
+		assertEquals(new Short((short) 253), blLs.getLastAvailable());
+		assertEquals(Language.SPOIL, blLs.getLastAvailableLanguage());
 	}
 
 	@Test
@@ -82,11 +101,11 @@ public class UpdaterServiceTest {
 		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNoUpdates());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_URL, FILE_LOCATION, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_URL, LIRESCAN_STATE, CURRENT_STATE, mockParser);
 		updaterService.update();
 
 		//=== EXPECT ===
-		Map<Manga, MangaState> stateAfterUpdate = StateWriterService.readCurrentState(FILE_LOCATION);
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
@@ -98,6 +117,67 @@ public class UpdaterServiceTest {
 		assertEquals(new Short((short) 252), bl.getLastAvailable());
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
+		//=== LIRESCAN JSON SHOULD NOT BE UPDATED EITHER ===
+		Map<Manga, MangaState> lirescanState = StateFileService.readCurrentState(LIRESCAN_STATE);
+		assertEquals(2, lirescanState.size());
+		MangaState ajinLs = lirescanState.get(Manga.AJIN);
+		assertEquals(Manga.AJIN, ajinLs.getManga());
+		assertEquals(new Short((short) 77), ajinLs.getLastAvailable());
+		assertEquals(Language.RAW, ajinLs.getLastAvailableLanguage());
+
+		MangaState blLs = lirescanState.get(Manga.BLACK_CLOVER);
+		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
+		assertEquals(new Short((short) 251), blLs.getLastAvailable());
+		assertEquals(Language.FRENCH, blLs.getLastAvailableLanguage());
+
+	}
+
+	@Test
+	public void shouldOnlyUpdateLireScan() throws IOException {
+		//TODO mock only http call
+		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
+		PowerMockito.when(HttpService.getContent(DUMMY_URL)).thenReturn(dummyHtmlContent);
+
+		//TODO call really parser and test parser later when parser intelligent
+		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
+		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesUpdateLireScanOnly());
+
+		//=== WHEN ===
+		UpdaterService updaterService = new UpdaterService(DUMMY_URL, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		updaterService.update();
+
+		//=== EXPECT ===
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
+		assertEquals(2, stateAfterUpdate.size());
+		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
+		assertEquals(Manga.AJIN, ajin.getManga());
+		assertEquals(new Short((short) 77), ajin.getLastAvailable());
+		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
+
+		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
+		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
+		assertEquals(new Short((short) 252), bl.getLastAvailable());
+		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
+
+		//=== LIRESCAN JSON SHOULD BE UPDATED ===
+		Map<Manga, MangaState> lirescanState = StateFileService.readCurrentState(LIRESCAN_STATE);
+		assertEquals(2, lirescanState.size());
+		MangaState ajinLs = lirescanState.get(Manga.AJIN);
+		assertEquals(Manga.AJIN, ajinLs.getManga());
+		assertEquals(new Short((short) 77), ajinLs.getLastAvailable());
+		assertEquals(Language.ENGLISH, ajinLs.getLastAvailableLanguage());
+
+		MangaState blLs = lirescanState.get(Manga.BLACK_CLOVER);
+		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
+		assertEquals(new Short((short) 252), blLs.getLastAvailable());
+		assertEquals(Language.SPOIL, blLs.getLastAvailableLanguage());
+	}
+
+	private Map<Manga, Release> getMapReleasesUpdateLireScanOnly() {
+		Map<Manga, Release> res = new HashMap<>();
+		res.put(Manga.AJIN, new Release(Manga.AJIN, 77, Language.ENGLISH));
+		res.put(Manga.BLACK_CLOVER, new Release(Manga.BLACK_CLOVER, 252, Language.SPOIL));
+		return res;
 	}
 
 	private Map<Manga, Release> getMapReleases() {
@@ -109,8 +189,8 @@ public class UpdaterServiceTest {
 
 	private Map<Manga, Release> getMapReleasesNoUpdates() {
 		Map<Manga, Release> res = new HashMap<>();
-		res.put(Manga.AJIN, new Release(Manga.AJIN, 77, Language.RAW));
-		res.put(Manga.BLACK_CLOVER, new Release(Manga.BLACK_CLOVER, 251, Language.SPOIL));
+		res.put(Manga.AJIN, new Release(Manga.AJIN, 77, Language.SPOIL));
+		res.put(Manga.BLACK_CLOVER, new Release(Manga.BLACK_CLOVER, 250, Language.SPOIL));
 		return res;
 	}
 

@@ -1,5 +1,5 @@
 Next time : 1 fichier json par site
-Progress:  
+Progress:  test dev updater service
 -----------------
 Back-End:
 -Fonctionnalités (33%):

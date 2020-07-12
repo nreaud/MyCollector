@@ -11,13 +11,16 @@ import com.nre.mycollector.service.parser.MangaWebSiteParser;
 public class UpdaterThread extends Thread {
 
 	private final String urlLireScan;
+	private final String pathCurrentStateWebSite;
 	private final String pathMyCurrentState;
 	private final MangaWebSiteParser parser;
 
 	private static final Logger logger = LogManager.getLogger(UpdaterThread.class);
 
-	public UpdaterThread(final String urlLireScan, final String pathMyCurrentState, final MangaWebSiteParser parser) {
+	public UpdaterThread(final String urlLireScan, final String pathCurrentStateWebSite, final String pathMyCurrentState,
+	    final MangaWebSiteParser parser) {
 		this.urlLireScan = urlLireScan;
+		this.pathCurrentStateWebSite = pathCurrentStateWebSite;
 		this.pathMyCurrentState = pathMyCurrentState;
 		this.parser = parser;
 	}
@@ -31,8 +34,11 @@ public class UpdaterThread extends Thread {
 			logger.info("Indeed enabled");
 		}
 		try {
-			UpdaterService updaterService = new UpdaterService(urlLireScan, pathMyCurrentState, parser);
+			UpdaterService updaterService = new UpdaterService(urlLireScan, pathCurrentStateWebSite, pathMyCurrentState,
+			    parser);
+			//TODO Update only for one web site at a time
 			updaterService.update();
+			//Update current state
 		} catch (IOException e) {
 			logger.debug(e.toString());
 		}
