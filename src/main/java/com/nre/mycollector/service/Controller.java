@@ -11,14 +11,26 @@ import org.springframework.stereotype.Service;
 import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.model.Release;
 
+// TODO Move into MangaStateUtils (quid ReleaseUtils)
 @Service
 public class Controller {
 
+	private Controller() {
+		//hidden
+	}
+
+	//TODO moreRecent functions inside respectively MangaState and Release
 	private static boolean moreRecent(MangaState currentState, MangaState newState) {
 		return (newState.getLastAvailable() > currentState.getLastAvailable())
 		    || ((newState.getLastAvailable().equals(currentState.getLastAvailable()))
 		        && (Language.moreRecent(newState.getLastAvailableLanguage(), currentState.getLastAvailableLanguage())));
+	}
+
+	private static boolean moreRecent(Release currentState, Release newState) {
+		return (newState.getNumber() > currentState.getNumber())
+		    || (Language.moreRecent(newState.getLanguage(), currentState.getLanguage()));
 	}
 
 	/**
@@ -38,7 +50,20 @@ public class Controller {
 				currentState = new MangaState(manga, (short) -1, Language.SPOIL);
 			}
 			return moreRecent(currentState, newState);
-		}).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
+		}).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+	}
+
+	public static Map<Manga, Release> getUpdatesWebSite(Map<Manga, Release> myCurrentStates,
+	    Map<Manga, Release> newMangaStates) {
+		return newMangaStates.entrySet().stream().filter(entry -> {
+			Manga manga = entry.getKey();
+			Release newState = entry.getValue();
+			Release currentState = myCurrentStates.get(manga);
+			if (currentState == null) { // Might be the case with a new manga
+				currentState = new Release(manga, (short) -1, Language.SPOIL);
+			}
+			return moreRecent(currentState, newState);
+		}).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 	}
 
 	/**
@@ -61,17 +86,44 @@ public class Controller {
 				currentState.setLastAvailableLanguage(newState.getLastAvailableLanguage());
 			}
 			return currentState;
-		}).sorted().collect(
-		    Collectors.toMap(mangaState -> mangaState.getManga(), mangaState -> mangaState, mergerDummy, TreeMap::new));
+		}).sorted().collect(Collectors.toMap(MangaState::getManga, mangaState -> mangaState, mergerDummy, TreeMap::new));
 
 		// Then we check if there are new mangas (new interest) to update res -> no
 		// need to set json file on hand
 		Map<Manga, MangaState> newMangas = updates.entrySet().stream()
 		    .filter(entry -> !myCurrentStates.containsKey(entry.getKey()))
-		    .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
+		    .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 
 		if (!newMangas.isEmpty()) {
 			for (Entry<Manga, MangaState> newEntry : newMangas.entrySet()) {
+				res.put(newEntry.getKey(), newEntry.getValue());
+			}
+		}
+		return res;
+	}
+
+	public static Map<Manga, Release> updateWebSiteSorted(Map<Manga, Release> currentStateWebSite,
+	    Map<Manga, Release> updatesWebSite) {
+		BinaryOperator<Release> mergerDummy = (v1, v2) -> v1;
+		// Firstly we update the known mangaStates
+		Map<Manga, Release> res = currentStateWebSite.entrySet().stream().map(entry -> {
+			Release currentState = entry.getValue();
+			if (updatesWebSite.containsKey(entry.getKey())) {
+				Release newState = updatesWebSite.get(entry.getKey());
+				currentState.setNumber(newState.getNumber());
+				currentState.setLanguage(newState.getLanguage());
+			}
+			return currentState;
+		}).sorted().collect(Collectors.toMap(Release::getManga, release -> release, mergerDummy, TreeMap::new));
+
+		// Then we check if there are new mangas (new interest) to update res -> no
+		// need to set json file on hand
+		Map<Manga, Release> newMangas = updatesWebSite.entrySet().stream()
+		    .filter(entry -> !currentStateWebSite.containsKey(entry.getKey()))
+		    .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+
+		if (!newMangas.isEmpty()) {
+			for (Entry<Manga, Release> newEntry : newMangas.entrySet()) {
 				res.put(newEntry.getKey(), newEntry.getValue());
 			}
 		}

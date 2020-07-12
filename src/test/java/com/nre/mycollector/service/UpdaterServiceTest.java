@@ -26,6 +26,7 @@ import com.nre.mycollector.utils.MangaTestUtils;
 @PrepareForTest(fullyQualifiedNames = "com.nre.mycollector.service.*")
 public class UpdaterServiceTest {
 
+	private static final double DELTA = 0.0;
 	final String CURRENT_STATE = "src/test/resources/updaterServiceCurrentStateTest.json";
 	final String LIRESCAN_STATE = "src/test/resources/updaterServiceLireScanStateTest.json";
 	final String DUMMY_URL = "any";
@@ -36,8 +37,8 @@ public class UpdaterServiceTest {
 		Map<Manga, MangaState> currentState = MangaTestUtils.getInitCurrentState();
 		StateFileService.writeCurrentState(currentState, CURRENT_STATE);
 
-		Map<Manga, MangaState> lireScanState = MangaTestUtils.getInitLireScanState();
-		StateFileService.writeCurrentState(lireScanState, LIRESCAN_STATE);
+		Map<Manga, Release> lireScanState = MangaTestUtils.getInitLireScanState();
+		StateFileService.writeWebSiteState(lireScanState, LIRESCAN_STATE);
 	}
 
 	@After
@@ -77,17 +78,17 @@ public class UpdaterServiceTest {
 		assertEquals(Language.SPOIL, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===
-		Map<Manga, MangaState> lirescanState = StateFileService.readCurrentState(LIRESCAN_STATE);
+		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
 		assertEquals(2, lirescanState.size());
-		MangaState ajinLs = stateAfterUpdate.get(Manga.AJIN);
+		Release ajinLs = lirescanState.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajinLs.getManga());
-		assertEquals(new Short((short) 77), ajinLs.getLastAvailable());
-		assertEquals(Language.FRENCH, ajinLs.getLastAvailableLanguage());
+		assertEquals(77, ajinLs.getNumber(), DELTA);
+		assertEquals(Language.FRENCH, ajinLs.getLanguage());
 
-		MangaState blLs = stateAfterUpdate.get(Manga.BLACK_CLOVER);
+		Release blLs = lirescanState.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
-		assertEquals(new Short((short) 253), blLs.getLastAvailable());
-		assertEquals(Language.SPOIL, blLs.getLastAvailableLanguage());
+		assertEquals(253, blLs.getNumber(), DELTA);
+		assertEquals(Language.SPOIL, blLs.getLanguage());
 	}
 
 	@Test
@@ -118,17 +119,17 @@ public class UpdaterServiceTest {
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD NOT BE UPDATED EITHER ===
-		Map<Manga, MangaState> lirescanState = StateFileService.readCurrentState(LIRESCAN_STATE);
+		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
 		assertEquals(2, lirescanState.size());
-		MangaState ajinLs = lirescanState.get(Manga.AJIN);
+		Release ajinLs = lirescanState.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajinLs.getManga());
-		assertEquals(new Short((short) 77), ajinLs.getLastAvailable());
-		assertEquals(Language.RAW, ajinLs.getLastAvailableLanguage());
+		assertEquals(77, ajinLs.getNumber(), DELTA);
+		assertEquals(Language.RAW, ajinLs.getLanguage());
 
-		MangaState blLs = lirescanState.get(Manga.BLACK_CLOVER);
+		Release blLs = lirescanState.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
-		assertEquals(new Short((short) 251), blLs.getLastAvailable());
-		assertEquals(Language.FRENCH, blLs.getLastAvailableLanguage());
+		assertEquals(251, blLs.getNumber(), DELTA);
+		assertEquals(Language.FRENCH, blLs.getLanguage());
 
 	}
 
@@ -160,17 +161,17 @@ public class UpdaterServiceTest {
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===
-		Map<Manga, MangaState> lirescanState = StateFileService.readCurrentState(LIRESCAN_STATE);
+		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
 		assertEquals(2, lirescanState.size());
-		MangaState ajinLs = lirescanState.get(Manga.AJIN);
+		Release ajinLs = lirescanState.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajinLs.getManga());
-		assertEquals(new Short((short) 77), ajinLs.getLastAvailable());
-		assertEquals(Language.ENGLISH, ajinLs.getLastAvailableLanguage());
+		assertEquals(77, ajinLs.getNumber(), DELTA);
+		assertEquals(Language.ENGLISH, ajinLs.getLanguage());
 
-		MangaState blLs = lirescanState.get(Manga.BLACK_CLOVER);
+		Release blLs = lirescanState.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
-		assertEquals(new Short((short) 252), blLs.getLastAvailable());
-		assertEquals(Language.SPOIL, blLs.getLastAvailableLanguage());
+		assertEquals(252, blLs.getNumber(), DELTA);
+		assertEquals(Language.SPOIL, blLs.getLanguage());
 	}
 
 	private Map<Manga, Release> getMapReleasesUpdateLireScanOnly() {

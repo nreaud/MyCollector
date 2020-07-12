@@ -33,34 +33,35 @@ public class UpdaterService {
 		String htmlContent = HttpService.getContent(this.urlMangaWebSite);
 
 		Map<Manga, Release> mapLatestReleases = parser.parse(htmlContent);
-		Map<Manga, MangaState> latestStates = StateMapper.mapFromReleases(mapLatestReleases);
 
 		//TODO log debug
 		LOGGER.info("=== Web site latest state ===");
-		MangaStateUtils.print(latestStates, LOGGER);
+		MangaStateUtils.printMapReleases(mapLatestReleases, LOGGER);
 
 		//TODO only Release and not MangaState -> updatesWebSite Release, updates mangastate
-		Map<Manga, MangaState> currentStateWebSite = StateFileService.readCurrentStateSorted(pathCurrentStateWebSite);
+		Map<Manga, Release> currentStateWebSite = StateFileService.readWebSiteStateSorted(pathCurrentStateWebSite);
 		LOGGER.info("=== Web site current state");
-		MangaStateUtils.print(currentStateWebSite, LOGGER);
+		MangaStateUtils.printMapReleases(currentStateWebSite, LOGGER);
 
-		Map<Manga, MangaState> updatesWebSite = Controller.getUpdates(currentStateWebSite, latestStates);
+		Map<Manga, Release> updatesWebSite = Controller.getUpdatesWebSite(currentStateWebSite, mapLatestReleases);
 		if (!updatesWebSite.isEmpty()) {
 			//TODO stay info
 			LOGGER.info("=== Updates web site ===");
-			MangaStateUtils.print(updatesWebSite, LOGGER);
+			MangaStateUtils.printMapReleases(updatesWebSite, LOGGER);
 
-			currentStateWebSite = Controller.updateSorted(currentStateWebSite, updatesWebSite);
+			currentStateWebSite = Controller.updateWebSiteSorted(currentStateWebSite, updatesWebSite);
 			LOGGER.info("=== Web site current state after updated ===");
-			MangaStateUtils.print(currentStateWebSite, LOGGER);
+			MangaStateUtils.printMapReleases(currentStateWebSite, LOGGER);
 
-			StateFileService.writeCurrentState(currentStateWebSite, pathCurrentStateWebSite);
+			StateFileService.writeWebSiteState(currentStateWebSite, pathCurrentStateWebSite);
 
 			Map<Manga, MangaState> myCurrentStates = StateFileService.readCurrentStateSorted(this.pathMyCurrentState);
 			LOGGER.info("=== My current state ===");
 			MangaStateUtils.print(myCurrentStates, LOGGER);
 
-			Map<Manga, MangaState> updates = Controller.getUpdates(myCurrentStates, updatesWebSite);
+			Map<Manga, MangaState> updatesWebSiteMS = StateMapper.mapFromReleases(updatesWebSite);
+
+			Map<Manga, MangaState> updates = Controller.getUpdates(myCurrentStates, updatesWebSiteMS);
 			if (!updates.isEmpty()) {
 				//TODO stay info
 				LOGGER.info("=== Updates current state ===");

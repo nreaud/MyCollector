@@ -93,4 +93,41 @@ public class MangaState implements Comparable<MangaState> {
 		return res;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((lastAvailable == null) ? 0 : lastAvailable.hashCode());
+		result = prime * result + ((lastAvailableLanguage == null) ? 0 : lastAvailableLanguage.hashCode());
+		result = prime * result + ((lastRead == null) ? 0 : lastRead.hashCode());
+		result = prime * result + ((manga == null) ? 0 : manga.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MangaState other = (MangaState) obj;
+		if (lastAvailable == null) {
+			if (other.lastAvailable != null)
+				return false;
+		} else if (!lastAvailable.equals(other.lastAvailable))
+			return false;
+		if (lastAvailableLanguage != other.lastAvailableLanguage)
+			return false;
+		if (lastRead == null) {
+			if (other.lastRead != null)
+				return false;
+		} else if (!lastRead.equals(other.lastRead))
+			return false;
+		if (manga != other.manga)
+			return false;
+		return true;
+	}
+
 }
