@@ -1,5 +1,5 @@
-Next time : pb chargement nvelles props
-Progress: todo etoffer + toutes les props dans yml (bug pour l'instant)
+Next time : 1 fichier json par site
+Progress:  
 -----------------
 Back-End:
 -Fonctionnalités (33%):
@@ -22,11 +22,12 @@ Back-End:
 	- Possible d'avoir @Value variables final?
 	- gérer les //TODO
 	- git hook before commit: maven clean install (with tests) + run ok
+	- tools.jar lancement eclipse
 		
 - Clean Code(60%):
 	- Couverture Test 90%
 	- SonarLint sur tout le code 
-	- Fichiers props (urls, path files, ...) -> compléter
+	- Fichiers props (urls, path files, ...) -> finir
 	
 - Projet mature: (5%)
 	- API mature?
@@ -34,7 +35,7 @@ Back-End:
 	- API doc
 	- Doc fonctionnelle
 	- Doc github
-	- Lister chaque cat�gorie de todoList finies (pour présentation projet)
+	- Lister chaque catégorie de todoList finies (pour présentation projet)
 
 ---------------------------------------------------------------------
 Front-End:
