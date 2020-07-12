@@ -14,7 +14,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FileWriterService {
-	// TODO revoir trop spécifique...
+
+	private FileWriterService() {
+		//hidden
+	}
+
+	//TODO revoir trop spécifique...
 	public static void writeNewContent(String fileName, Collection<String> content) throws IOException {
 		FileWriter fileWriter = new FileWriter(fileName);
 		fileWriter.flush();

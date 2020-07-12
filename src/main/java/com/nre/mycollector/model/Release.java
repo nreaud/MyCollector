@@ -46,6 +46,11 @@ public class Release implements Comparable<Release> {
 		this.language = language;
 	}
 
+	public static boolean moreRecent(Release currentState, Release newState) {
+		return (newState.getNumber() > currentState.getNumber())
+		    || (Language.moreRecent(newState.getLanguage(), currentState.getLanguage()));
+	}
+
 	@Override
 	public String toString() {
 		return "Release [manga=" + manga + ", number=" + number + ", language=" + language + "]";

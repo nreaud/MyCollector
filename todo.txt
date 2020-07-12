@@ -5,7 +5,6 @@ Back-End:
 -Fonctionnalités (33%):
 	- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
 	- Aller chercher info sur manganelo, lelscan et mangareader
-	- Un currentState global et un par site (1 fichier json par state)
 	- Stratégie de maj par manga
 		- rythme de parution
 		- prochaine sortie prévue
@@ -13,7 +12,7 @@ Back-End:
 	- mangas et langages chargés dynamiquements depuis ficher de prop
 	- (Optionel) Ajouter nouveau site source, simplement en ajoutant une url dans un fichier de props
 		
--Optis/Corrections(5jh):
+-Optis/Corrections(Xjh):
 	- Handle Http errors when checking updates (lirescan,...) 
 	- Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
 	- Thread launcher se coupe bien en même temps que appli? -> test écriture fichier

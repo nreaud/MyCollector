@@ -38,18 +38,17 @@ public class UpdaterService {
 		LOGGER.info("=== Web site latest state ===");
 		MangaStateUtils.printMapReleases(mapLatestReleases, LOGGER);
 
-		//TODO only Release and not MangaState -> updatesWebSite Release, updates mangastate
 		Map<Manga, Release> currentStateWebSite = StateFileService.readWebSiteStateSorted(pathCurrentStateWebSite);
 		LOGGER.info("=== Web site current state");
 		MangaStateUtils.printMapReleases(currentStateWebSite, LOGGER);
 
-		Map<Manga, Release> updatesWebSite = Controller.getUpdatesWebSite(currentStateWebSite, mapLatestReleases);
+		Map<Manga, Release> updatesWebSite = MangaStateUtils.getUpdatesWebSite(currentStateWebSite, mapLatestReleases);
 		if (!updatesWebSite.isEmpty()) {
 			//TODO stay info
 			LOGGER.info("=== Updates web site ===");
 			MangaStateUtils.printMapReleases(updatesWebSite, LOGGER);
 
-			currentStateWebSite = Controller.updateWebSiteSorted(currentStateWebSite, updatesWebSite);
+			currentStateWebSite = MangaStateUtils.updateWebSiteSorted(currentStateWebSite, updatesWebSite);
 			LOGGER.info("=== Web site current state after updated ===");
 			MangaStateUtils.printMapReleases(currentStateWebSite, LOGGER);
 
@@ -61,13 +60,13 @@ public class UpdaterService {
 
 			Map<Manga, MangaState> updatesWebSiteMS = StateMapper.mapFromReleases(updatesWebSite);
 
-			Map<Manga, MangaState> updates = Controller.getUpdates(myCurrentStates, updatesWebSiteMS);
+			Map<Manga, MangaState> updates = MangaStateUtils.getUpdates(myCurrentStates, updatesWebSiteMS);
 			if (!updates.isEmpty()) {
 				//TODO stay info
 				LOGGER.info("=== Updates current state ===");
 				MangaStateUtils.print(updates, LOGGER);
 
-				myCurrentStates = Controller.updateSorted(myCurrentStates, updates);
+				myCurrentStates = MangaStateUtils.updateSorted(myCurrentStates, updates);
 
 				LOGGER.info("=== My current state after update ===");
 				MangaStateUtils.print(myCurrentStates, LOGGER);

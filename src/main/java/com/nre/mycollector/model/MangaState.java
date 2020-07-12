@@ -66,6 +66,12 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastAvailable = lastAvailable;
 	}
 
+	public static boolean moreRecent(MangaState currentState, MangaState newState) {
+		return (newState.getLastAvailable() > currentState.getLastAvailable())
+		    || ((newState.getLastAvailable().equals(currentState.getLastAvailable()))
+		        && (Language.moreRecent(newState.getLastAvailableLanguage(), currentState.getLastAvailableLanguage())));
+	}
+
 	@Override
 	public String toString() {
 		return "State [manga=" + manga + ", lastRead=" + lastRead + ", lastAvailable=" + lastAvailable

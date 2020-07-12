@@ -57,7 +57,7 @@ public class MyCollectorApi {
 				res = currentMangaState;
 			}
 		} else {
-			// TODO 404
+			//TODO 404
 		}
 		return res;
 	}
