@@ -25,16 +25,15 @@ public class LireScanParser extends MangaWebSiteParser {
 
 	@Override
 	public Map<Manga, Release> parse(String htmlContent) {
-		Document doc = Jsoup.parse(htmlContent.toString());
+		Document doc = Jsoup.parse(htmlContent);
 		Element releasesContainer = doc.getElementById("releases");
 		Elements releases = releasesContainer.getAllElements();
 
 		return releases.stream().filter(release -> release.tagName().equals("li")) // The
 		    // releases are stored under <li> tags
-		    .map(release -> release.text()) // The releases informations are stored
+		    .map(Element::text) // The releases informations are stored
 		    // like text
-		    .map(release -> mapToReleaseObject(release)) // Cf mapToReleaseObject
-		    .filter(release -> !release.getManga().equals(Manga.UNKNOWN)) // Manga not in my Enum dont intersest me, sofiltered
+		    .map(this::mapToReleaseObject).filter(release -> !release.getManga().equals(Manga.UNKNOWN)) // Manga not in my Enum dont intersest me, sofiltered
 		    .collect(ReleasesCollector.getInstance()); // Cf ReleasesCollector
 
 	}

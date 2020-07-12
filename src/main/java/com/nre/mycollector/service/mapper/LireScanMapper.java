@@ -19,6 +19,11 @@ import com.nre.mycollector.model.Manga;
 public class LireScanMapper {
 	private static final Map<String, Manga> mangaNames;
 	private static final Map<String, Language> languages;
+
+	private LireScanMapper() {
+		//hidden
+	}
+
 	static {
 		Map<String, Manga> mapMangaNames = new HashMap<>();
 		mapMangaNames.put("Ajin", Manga.AJIN);

@@ -26,10 +26,8 @@ public class FileWriterService {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
 
-		content.stream().sorted().forEach(line -> {
-			sb.append("\"" + line + "\"," + "\r\n"); // "word,"\r\n
-
-		});
+		content.stream().sorted().forEach(line -> sb.append("\"" + line + "\"," + "\r\n") // "word,"\r\n
+		);
 
 		sb.deleteCharAt(sb.length() - 3); // remove last comma
 		sb.append("]");
