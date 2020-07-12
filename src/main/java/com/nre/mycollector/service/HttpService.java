@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -19,6 +20,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class HttpService {
 
+	private static final Pattern isHttpsPattern = Pattern.compile("https.*");
+
+	private HttpService() {
+		//hidden
+	}
+
 	/**
 	 * Get Html content from http or https adresses
 	 * 
@@ -27,10 +34,10 @@ public class HttpService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String getContent(String urlStr, boolean isHttps) throws IOException {
+	public static String getContent(String urlStr) throws IOException {
 		URL url = new URL(urlStr);
 		HttpURLConnection con;
-		if (isHttps) {
+		if (isHttps(urlStr)) {
 			con = (HttpsURLConnection) url.openConnection();
 		} else {
 			con = (HttpURLConnection) url.openConnection();
@@ -52,5 +59,9 @@ public class HttpService {
 		con.disconnect();
 		return content.toString();
 
+	}
+
+	private static boolean isHttps(String urlStr) {
+		return isHttpsPattern.matcher(urlStr).matches();
 	}
 }

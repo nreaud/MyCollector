@@ -47,7 +47,7 @@ public class UpdaterServiceTest {
 		//=== GIVEN ===
 		//TODO mock only http call
 		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_URL, true)).thenReturn(dummyHtmlContent);
+		PowerMockito.when(HttpService.getContent(DUMMY_URL)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
 		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
@@ -75,7 +75,7 @@ public class UpdaterServiceTest {
 	public void shouldNotUpdate() throws IOException {
 		//TODO mock only http call
 		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_URL, true)).thenReturn(dummyHtmlContent);
+		PowerMockito.when(HttpService.getContent(DUMMY_URL)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
 		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);

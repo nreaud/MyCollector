@@ -16,18 +16,19 @@ import com.nre.mycollector.service.parser.MangaWebSiteParser;
 public class UpdaterService {
 
 	private static final Logger LOGGER = LogManager.getLogger(UpdaterService.class.getName());
-	private final String url;
+	private final String urlMangaWebSite;
 	private final String pathMyCurrentState;
 	private final MangaWebSiteParser parser;
 
-	public UpdaterService(final String url, final String pathMyCurrentState, final MangaWebSiteParser parser) {
-		this.url = url;
+	public UpdaterService(final String urlMangaWebSite, final String pathMyCurrentState,
+	    final MangaWebSiteParser parser) {
+		this.urlMangaWebSite = urlMangaWebSite;
 		this.pathMyCurrentState = pathMyCurrentState;
 		this.parser = parser;
 	}
 
 	public void update() throws IOException {
-		String htmlContent = HttpService.getContent(this.url, true);
+		String htmlContent = HttpService.getContent(this.urlMangaWebSite);
 
 		Map<Manga, Release> mapLatestReleases = parser.parse(htmlContent);
 

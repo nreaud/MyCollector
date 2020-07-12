@@ -23,6 +23,7 @@ Back-End:
 	- gérer les //TODO
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
+	- faire fonctionner mvn clean install (avec tests)
 		
 - Clean Code(60%):
 	- Couverture Test 90%
