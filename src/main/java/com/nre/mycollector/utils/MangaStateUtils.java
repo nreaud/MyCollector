@@ -84,7 +84,7 @@ public class MangaStateUtils {
 			return currentState;
 		}).sorted().collect(Collectors.toMap(MangaState::getManga, mangaState -> mangaState, mergerDummy, TreeMap::new));
 
-		// Then we check if there are new mangas (new interest) to update res -> no
+		// Then we check if there are new mangas (new interest) to update res <=> no
 		// need to set json file on hand
 		Map<Manga, MangaState> newMangas = updates.entrySet().stream()
 		    .filter(entry -> !myCurrentStates.containsKey(entry.getKey()))

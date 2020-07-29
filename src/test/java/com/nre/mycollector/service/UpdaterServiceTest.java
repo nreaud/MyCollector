@@ -29,7 +29,8 @@ public class UpdaterServiceTest {
 	private static final double DELTA = 0.0;
 	final String CURRENT_STATE = "src/test/resources/updaterServiceCurrentStateTest.json";
 	final String LIRESCAN_STATE = "src/test/resources/updaterServiceLireScanStateTest.json";
-	final String DUMMY_URL = "any";
+	final String DUMMY_HTTPS = "https://dummyHttps.com";
+	final String DUMMY_HTTP = "http://dummyHttp.com";
 	String dummyHtmlContent = "dummyHtmlContent";
 
 	@Before
@@ -54,14 +55,14 @@ public class UpdaterServiceTest {
 		//=== GIVEN ===
 		//TODO mock only http call
 		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_URL)).thenReturn(dummyHtmlContent);
+		PowerMockito.when(HttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
 		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
 		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleases());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_URL, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser);
 		updaterService.update();
 
 		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
@@ -92,17 +93,69 @@ public class UpdaterServiceTest {
 	}
 
 	@Test
+	public void updateAndCreateNewManga() throws IOException {
+		//=== GIVEN ===
+		//TODO mock only http call
+		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
+		PowerMockito.when(HttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
+
+		//TODO call really parser and test parser later when parser intelligent
+		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
+		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNewManga());
+
+		//=== WHEN ===
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		updaterService.update();
+
+		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
+		assertEquals(3, stateAfterUpdate.size());
+		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
+		assertEquals(Manga.AJIN, ajin.getManga());
+		assertEquals(new Short((short) 77), ajin.getLastAvailable());
+		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
+
+		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
+		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
+		assertEquals(new Short((short) 252), bl.getLastAvailable());
+		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
+
+		MangaState wt = stateAfterUpdate.get(Manga.WORLD_TRIGGER);
+		assertEquals(Manga.WORLD_TRIGGER, wt.getManga());
+		assertEquals(new Short((short) 197), wt.getLastAvailable());
+		assertEquals(Language.FRENCH, wt.getLastAvailableLanguage());
+
+		//=== LIRESCAN JSON SHOULD ALSO BE UPDATED ===
+		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
+		assertEquals(3, lirescanState.size());
+		Release ajinLs = lirescanState.get(Manga.AJIN);
+		assertEquals(Manga.AJIN, ajinLs.getManga());
+		assertEquals(77, ajinLs.getNumber(), DELTA);
+		assertEquals(Language.RAW, ajinLs.getLanguage());
+
+		Release blLs = lirescanState.get(Manga.BLACK_CLOVER);
+		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
+		assertEquals(251, blLs.getNumber(), DELTA);
+		assertEquals(Language.FRENCH, blLs.getLanguage());
+
+		MangaState wtLs = stateAfterUpdate.get(Manga.WORLD_TRIGGER);
+		assertEquals(Manga.WORLD_TRIGGER, wtLs.getManga());
+		assertEquals(new Short((short) 197), wtLs.getLastAvailable());
+		assertEquals(Language.FRENCH, wtLs.getLastAvailableLanguage());
+	}
+
+	@Test
 	public void shouldNotUpdate() throws IOException {
 		//TODO mock only http call
 		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_URL)).thenReturn(dummyHtmlContent);
+		PowerMockito.when(HttpService.getContent(DUMMY_HTTP)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
 		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
 		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNoUpdates());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_URL, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTP, LIRESCAN_STATE, CURRENT_STATE, mockParser);
 		updaterService.update();
 
 		//=== EXPECT ===
@@ -137,14 +190,14 @@ public class UpdaterServiceTest {
 	public void shouldOnlyUpdateLireScan() throws IOException {
 		//TODO mock only http call
 		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_URL)).thenReturn(dummyHtmlContent);
+		PowerMockito.when(HttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
 		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
 		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesUpdateLireScanOnly());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_URL, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser);
 		updaterService.update();
 
 		//=== EXPECT ===
@@ -185,6 +238,12 @@ public class UpdaterServiceTest {
 		Map<Manga, Release> res = new HashMap<>();
 		res.put(Manga.AJIN, new Release(Manga.AJIN, 77, Language.FRENCH));
 		res.put(Manga.BLACK_CLOVER, new Release(Manga.BLACK_CLOVER, 253, Language.SPOIL));
+		return res;
+	}
+
+	private Map<Manga, Release> getMapReleasesNewManga() {
+		Map<Manga, Release> res = new HashMap<>();
+		res.put(Manga.WORLD_TRIGGER, new Release(Manga.WORLD_TRIGGER, 197, Language.FRENCH));
 		return res;
 	}
 

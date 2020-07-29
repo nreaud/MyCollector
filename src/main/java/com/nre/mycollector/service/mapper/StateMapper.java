@@ -24,13 +24,6 @@ public class StateMapper {
 		//hidden
 	}
 
-	public static Map<Manga, Release> mapToReleases(Map<Manga, MangaState> state) {
-		return state.entrySet().stream().map(entry -> {
-			MangaState mangaState = entry.getValue();
-			return new Release(mangaState.getManga(), mangaState.getLastAvailable(), mangaState.getLastAvailableLanguage());
-		}).collect(Collectors.toMap(Release::getManga, release -> release));
-	}
-
 	public static Map<Manga, MangaState> mapFromReleases(Map<Manga, Release> releases) {
 		BinaryOperator<MangaState> mergerDummy = (v1, v2) -> v1;
 

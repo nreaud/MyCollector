@@ -3,6 +3,7 @@ Progress:
 -----------------
 Back-End:
 -Fonctionnalités (33%):
+	- corriger erreur: chapitre peut être .5 et donc toujours stocké en float
 	- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
 	- Aller chercher info sur manganelo, lelscan et mangareader
 	- Stratégie de maj par manga
