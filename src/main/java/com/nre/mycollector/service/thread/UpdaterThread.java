@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.nre.mycollector.service.HttpService;
 import com.nre.mycollector.service.UpdaterService;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
 
@@ -35,7 +36,7 @@ public class UpdaterThread extends Thread {
 		}
 		try {
 			UpdaterService updaterService = new UpdaterService(urlLireScan, pathCurrentStateWebSite, pathMyCurrentState,
-			    parser);
+			    parser, new HttpService());
 			//TODO Update only for one web site at a time
 			updaterService.update();
 			//Update current state

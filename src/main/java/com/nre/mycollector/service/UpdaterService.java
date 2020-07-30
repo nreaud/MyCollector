@@ -20,17 +20,19 @@ public class UpdaterService {
 	private final String pathCurrentStateWebSite;
 	private final String pathMyCurrentState;
 	private final MangaWebSiteParser parser;
+	private HttpService httpService;
 
 	public UpdaterService(final String urlMangaWebSite, final String pathCurrentStateWebSite,
-	    final String pathMyCurrentState, final MangaWebSiteParser parser) {
+	    final String pathMyCurrentState, final MangaWebSiteParser parser, HttpService httpService) {
 		this.urlMangaWebSite = urlMangaWebSite;
 		this.pathCurrentStateWebSite = pathCurrentStateWebSite;
 		this.pathMyCurrentState = pathMyCurrentState;
 		this.parser = parser;
+		this.httpService = httpService;
 	}
 
 	public void update() throws IOException {
-		String htmlContent = HttpService.getContent(this.urlMangaWebSite);
+		String htmlContent = httpService.getContent(this.urlMangaWebSite);
 
 		Map<Manga, Release> mapLatestReleases = parser.parse(htmlContent);
 

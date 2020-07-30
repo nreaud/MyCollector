@@ -10,10 +10,7 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.Mockito;
 
 import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
@@ -22,8 +19,6 @@ import com.nre.mycollector.model.Release;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
 import com.nre.mycollector.utils.MangaTestUtils;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(fullyQualifiedNames = "com.nre.mycollector.service.*")
 public class UpdaterServiceTest {
 
 	private static final double DELTA = 0.0;
@@ -54,18 +49,19 @@ public class UpdaterServiceTest {
 	public void updateTestOk() throws IOException {
 		//=== GIVEN ===
 		//TODO mock only http call
-		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
+		HttpService mockHttpService = Mockito.mock(HttpService.class);
+		Mockito.when(mockHttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
-		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
-		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleases());
+		MangaWebSiteParser mockParser = Mockito.mock(MangaWebSiteParser.class);
+		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleases());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser,
+		    mockHttpService);
 		updaterService.update();
 
-		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
+		//=== CURRENT STATE JSON SHOULD BE sUPDATED ===
 		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
@@ -96,15 +92,16 @@ public class UpdaterServiceTest {
 	public void updateAndCreateNewManga() throws IOException {
 		//=== GIVEN ===
 		//TODO mock only http call
-		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
+		HttpService mockHttpService = Mockito.mock(HttpService.class); //power mockito to mock static methods
+		Mockito.when(mockHttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
-		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
-		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNewManga());
+		MangaWebSiteParser mockParser = Mockito.mock(MangaWebSiteParser.class);
+		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNewManga());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser,
+		    mockHttpService);
 		updaterService.update();
 
 		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
@@ -147,15 +144,16 @@ public class UpdaterServiceTest {
 	@Test
 	public void shouldNotUpdate() throws IOException {
 		//TODO mock only http call
-		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_HTTP)).thenReturn(dummyHtmlContent);
+		HttpService mockHttpService = Mockito.mock(HttpService.class); //power mockito to mock static methods
+		Mockito.when(mockHttpService.getContent(DUMMY_HTTP)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
-		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
-		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNoUpdates());
+		MangaWebSiteParser mockParser = Mockito.mock(MangaWebSiteParser.class);
+		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNoUpdates());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTP, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTP, LIRESCAN_STATE, CURRENT_STATE, mockParser,
+		    mockHttpService);
 		updaterService.update();
 
 		//=== EXPECT ===
@@ -189,15 +187,16 @@ public class UpdaterServiceTest {
 	@Test
 	public void shouldOnlyUpdateLireScan() throws IOException {
 		//TODO mock only http call
-		PowerMockito.mockStatic(HttpService.class); //power mockito to mock static methods
-		PowerMockito.when(HttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
+		HttpService mockHttpService = Mockito.mock(HttpService.class); //power mockito to mock static methods
+		Mockito.when(mockHttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
-		MangaWebSiteParser mockParser = PowerMockito.mock(MangaWebSiteParser.class);
-		PowerMockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesUpdateLireScanOnly());
+		MangaWebSiteParser mockParser = Mockito.mock(MangaWebSiteParser.class);
+		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesUpdateLireScanOnly());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser);
+		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser,
+		    mockHttpService);
 		updaterService.update();
 
 		//=== EXPECT ===

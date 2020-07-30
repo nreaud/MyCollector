@@ -23,10 +23,6 @@ public class HttpService {
 
 	private static final Pattern isHttpsPattern = Pattern.compile("https.*");
 
-	private HttpService() {
-		//hidden
-	}
-
 	/**
 	 * Get Html content from http or https adresses
 	 * 
@@ -35,7 +31,7 @@ public class HttpService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String getContent(String urlStr) throws IOException {
+	public String getContent(String urlStr) throws IOException {
 		URL url = new URL(urlStr);
 		HttpURLConnection con;
 		if (isHttps(urlStr)) {
@@ -62,7 +58,7 @@ public class HttpService {
 
 	}
 
-	private static boolean isHttps(String urlStr) {
+	private boolean isHttps(String urlStr) {
 		return isHttpsPattern.matcher(urlStr).matches();
 	}
 }
