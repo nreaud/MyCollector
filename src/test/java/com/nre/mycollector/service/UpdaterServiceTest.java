@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.modules.agent.PowerMockAgent;
+import org.powermock.modules.junit4.rule.PowerMockRule;
 
 import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
@@ -22,9 +22,14 @@ import com.nre.mycollector.model.Release;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
 import com.nre.mycollector.utils.MangaTestUtils;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(fullyQualifiedNames = "com.nre.mycollector.service.*")
 public class UpdaterServiceTest {
+
+	static {
+		PowerMockAgent.initializeIfPossible();
+	}
+
+	@Rule
+	public PowerMockRule rule = new PowerMockRule();
 
 	private static final double DELTA = 0.0;
 	final String CURRENT_STATE = "src/test/resources/updaterServiceCurrentStateTest.json";

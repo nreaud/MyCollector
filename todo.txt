@@ -24,6 +24,7 @@ Back-End:
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
 	- faire fonctionner mvn clean install (avec tests)
+	- pom versions en properties (ne plus les dupliquer: powermock, ...)
 		
 - Clean Code(60%):
 	- Couverture Test 90% service
