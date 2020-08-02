@@ -56,12 +56,12 @@ public class MyCollectorApiGetMangaStatesTest {
 	@Test
 	public void getMangaStatesTest() throws Exception {
 		mvc.perform(get("/mangaStates").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		    .andExpect(jsonPath("$.AJIN.manga", is(Manga.AJIN.name())))
-		    .andExpect(jsonPath("$.AJIN.lastRead", is((Short) null))).andExpect(jsonPath("$.AJIN.lastAvailable", is(77)))
+		    .andExpect(jsonPath("$.AJIN.manga", is(Manga.AJIN.name()))).andExpect(jsonPath("$.AJIN.lastRead", is(0.)))
+		    .andExpect(jsonPath("$.AJIN.lastAvailable", is(77.)))
 		    .andExpect(jsonPath("$.AJIN.lastAvailableLanguage", is(Language.ENGLISH.name())))
 		    .andExpect(jsonPath("$.BLACK_CLOVER.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.BLACK_CLOVER.lastRead", is(251)))
-		    .andExpect(jsonPath("$.BLACK_CLOVER.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.BLACK_CLOVER.lastRead", is(251.)))
+		    .andExpect(jsonPath("$.BLACK_CLOVER.lastAvailable", is(252.)))
 		    .andExpect(jsonPath("$.BLACK_CLOVER.lastAvailableLanguage", is(Language.FRENCH.name())));
 	}
 

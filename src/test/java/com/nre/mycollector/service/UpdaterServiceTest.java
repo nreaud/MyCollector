@@ -66,12 +66,12 @@ public class UpdaterServiceTest {
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
-		assertEquals(new Short((short) 77), ajin.getLastAvailable());
+		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, ajin.getLastAvailableLanguage());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
-		assertEquals(new Short((short) 253), bl.getLastAvailable());
+		assertEquals(253, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.SPOIL, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===
@@ -109,17 +109,17 @@ public class UpdaterServiceTest {
 		assertEquals(3, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
-		assertEquals(new Short((short) 77), ajin.getLastAvailable());
+		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
-		assertEquals(new Short((short) 252), bl.getLastAvailable());
+		assertEquals(252, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
 		MangaState wt = stateAfterUpdate.get(Manga.WORLD_TRIGGER);
 		assertEquals(Manga.WORLD_TRIGGER, wt.getManga());
-		assertEquals(new Short((short) 197), wt.getLastAvailable());
+		assertEquals(197, wt.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, wt.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD ALSO BE UPDATED ===
@@ -137,7 +137,7 @@ public class UpdaterServiceTest {
 
 		MangaState wtLs = stateAfterUpdate.get(Manga.WORLD_TRIGGER);
 		assertEquals(Manga.WORLD_TRIGGER, wtLs.getManga());
-		assertEquals(new Short((short) 197), wtLs.getLastAvailable());
+		assertEquals(197, wtLs.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, wtLs.getLastAvailableLanguage());
 	}
 
@@ -161,12 +161,12 @@ public class UpdaterServiceTest {
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
-		assertEquals(new Short((short) 77), ajin.getLastAvailable());
+		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
-		assertEquals(new Short((short) 252), bl.getLastAvailable());
+		assertEquals(252, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD NOT BE UPDATED EITHER ===
@@ -204,12 +204,12 @@ public class UpdaterServiceTest {
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
-		assertEquals(new Short((short) 77), ajin.getLastAvailable());
+		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
-		assertEquals(new Short((short) 252), bl.getLastAvailable());
+		assertEquals(252, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===

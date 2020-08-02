@@ -60,7 +60,7 @@ public class MyCollectorApiPostLastReadTest {
 
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/252").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.lastRead", is(252))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastRead", is(252.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
 		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 	}
 
@@ -68,7 +68,7 @@ public class MyCollectorApiPostLastReadTest {
 	public void lastReadAlreadyReadTest() throws Exception {
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/251").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.lastRead", is(251))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
 		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 
 	}
@@ -77,7 +77,7 @@ public class MyCollectorApiPostLastReadTest {
 	public void lastReadButNotLasAvailable() throws Exception {
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/250").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.lastRead", is(251))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
 		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 
 	}
@@ -86,7 +86,7 @@ public class MyCollectorApiPostLastReadTest {
 	public void lastReadNotAvailableYet() throws Exception {
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/253").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.lastRead", is(251))).andExpect(jsonPath("$.lastAvailable", is(252)))
+		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
 		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
 
 	}

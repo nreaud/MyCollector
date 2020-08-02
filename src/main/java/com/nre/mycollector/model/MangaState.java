@@ -9,8 +9,8 @@ package com.nre.mycollector.model;
  */
 public class MangaState implements Comparable<MangaState> {
 	private Manga manga;
-	private Short lastRead;
-	private Short lastAvailable;
+	private float lastRead;
+	private float lastAvailable;
 	private Language lastAvailableLanguage;
 
 	public MangaState() {
@@ -21,13 +21,13 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastAvailableLanguage = Language.SPOIL;
 	}
 
-	public MangaState(Manga manga, Short lastAvailable, Language lastAvailableLanguage) {
+	public MangaState(Manga manga, float lastAvailable, Language lastAvailableLanguage) {
 		this.manga = manga;
 		this.lastAvailable = lastAvailable;
 		this.lastAvailableLanguage = lastAvailableLanguage;
 	}
 
-	public MangaState(Manga manga, Short lastRead, Short lastAvailable, Language lastAvailableLanguage) {
+	public MangaState(Manga manga, float lastRead, float lastAvailable, Language lastAvailableLanguage) {
 		this.manga = manga;
 		this.lastRead = lastRead;
 		this.lastAvailable = lastAvailable;
@@ -50,25 +50,25 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastAvailableLanguage = lastAvailableLanguage;
 	}
 
-	public Short getLastRead() {
+	public float getLastRead() {
 		return lastRead;
 	}
 
-	public void setLastRead(Short lastRead) {
+	public void setLastRead(float lastRead) {
 		this.lastRead = lastRead;
 	}
 
-	public Short getLastAvailable() {
+	public float getLastAvailable() {
 		return lastAvailable;
 	}
 
-	public void setLastAvailable(Short lastAvailable) {
+	public void setLastAvailable(float lastAvailable) {
 		this.lastAvailable = lastAvailable;
 	}
 
 	public static boolean moreRecent(MangaState currentState, MangaState newState) {
 		return (newState.getLastAvailable() > currentState.getLastAvailable())
-		    || ((newState.getLastAvailable().equals(currentState.getLastAvailable()))
+		    || ((newState.getLastAvailable() == currentState.getLastAvailable())
 		        && (Language.moreRecent(newState.getLastAvailableLanguage(), currentState.getLastAvailableLanguage())));
 	}
 
@@ -89,8 +89,8 @@ public class MangaState implements Comparable<MangaState> {
 			if (this.manga != other.manga) {
 				res = this.manga.compareTo(other.manga); // ordered by name
 			} else { // same manga
-				if (!this.lastAvailable.equals(other.lastAvailable)) {
-					res = this.lastAvailable - other.lastAvailable;
+				if (this.lastAvailable != other.lastAvailable) {
+					res = this.lastAvailable > other.lastAvailable ? 1 : -1;
 				} else { // same chapter number
 					res = this.lastAvailableLanguage.compareTo(other.lastAvailableLanguage);
 				}
@@ -103,9 +103,9 @@ public class MangaState implements Comparable<MangaState> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((lastAvailable == null) ? 0 : lastAvailable.hashCode());
+		result = prime * result + Float.floatToIntBits(lastAvailable);
 		result = prime * result + ((lastAvailableLanguage == null) ? 0 : lastAvailableLanguage.hashCode());
-		result = prime * result + ((lastRead == null) ? 0 : lastRead.hashCode());
+		result = prime * result + Float.floatToIntBits(lastRead);
 		result = prime * result + ((manga == null) ? 0 : manga.hashCode());
 		return result;
 	}
@@ -119,17 +119,11 @@ public class MangaState implements Comparable<MangaState> {
 		if (getClass() != obj.getClass())
 			return false;
 		MangaState other = (MangaState) obj;
-		if (lastAvailable == null) {
-			if (other.lastAvailable != null)
-				return false;
-		} else if (!lastAvailable.equals(other.lastAvailable))
+		if (Float.floatToIntBits(lastAvailable) != Float.floatToIntBits(other.lastAvailable))
 			return false;
 		if (lastAvailableLanguage != other.lastAvailableLanguage)
 			return false;
-		if (lastRead == null) {
-			if (other.lastRead != null)
-				return false;
-		} else if (!lastRead.equals(other.lastRead))
+		if (Float.floatToIntBits(lastRead) != Float.floatToIntBits(other.lastRead))
 			return false;
 		if (manga != other.manga)
 			return false;

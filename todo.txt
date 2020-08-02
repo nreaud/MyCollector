@@ -1,4 +1,5 @@
-Next time : Before Front: mvn clean install + git hook + coverage 90%
+Next time : Before Front: mvn clean install + git hook + erreur 0.5 chapitres
+
 Progress:  
 -----------------
 Back-End:
@@ -24,6 +25,7 @@ Back-End:
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
 	- faire fonctionner mvn clean install (avec tests)
+	- properties de versions commune dans pom
 		
 - Clean Code(60%):
 	- Couverture Test 90% service
