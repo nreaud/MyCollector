@@ -1,4 +1,4 @@
-Next time : Before Front: mvn clean install + git hook + erreur 0.5 chapitres
+Next time : Before Front: mvn clean install + git hook
 
 Progress:  
 -----------------
