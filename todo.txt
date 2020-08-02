@@ -1,10 +1,9 @@
-Next time : Before Front: mvn clean install + git hook
+Next time : Before Front: git hook
 
 Progress:  
 -----------------
 Back-End:
--Fonctionnalités (33%):
-	- corriger erreur: chapitre peut être .5 et donc toujours stocké en float
+-Fonctionnalités:
 	- Pour les sites ne pas avoir besoin d'écrire parseur spécifique mais dev algo qui "cherche" tout seul
 	- Aller chercher info sur manganelo, lelscan et mangareader
 	- Stratégie de maj par manga
@@ -14,24 +13,21 @@ Back-End:
 	- mangas et langages chargés dynamiquements depuis ficher de prop
 	- (Optionel) Ajouter nouveau site source, simplement en ajoutant une url dans un fichier de props
 		
--Optis/Corrections(Xjh):
+-Optis/Corrections:
 	- Handle Http errors when checking updates (lirescan,...) 
 	- Revoir les cas quand tri est necessaire, ne trier qu'avant affichage et ecriture fichier?
 	- Thread launcher se coupe bien en même temps que appli? -> test écriture fichier
 	- Pb logging -> logging file not read  (log doesnt match)
-	- Reprendre FileWriter
 	- Possible d'avoir @Value variables final?
 	- gérer les //TODO
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
-	- faire fonctionner mvn clean install (avec tests)
 	- properties de versions commune dans pom
 		
-- Clean Code(60%):
-	- Couverture Test 90% service
+- Clean Code:
 	- SonarLint sur tout le code
 	
-- Projet mature: (5%)
+- Projet mature:
 	- API mature?
 	- Design Pattern?
 	- API doc
