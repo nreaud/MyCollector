@@ -41,7 +41,7 @@ public class UpdaterThread extends Thread {
 			updaterService.update();
 			//Update current state
 		} catch (IOException e) {
-			logger.debug(e.toString());
+			logger.info(e.toString());
 		}
 	}
 

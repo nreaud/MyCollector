@@ -5,7 +5,7 @@ path:
     
 thread:
   minutesbeforenewupdate:
-    lirescan: 0.5
+    lirescan: 1000
   
 url:
   mangawebsite:

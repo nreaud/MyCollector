@@ -1,56 +1,56 @@
 {
   "AJIN" : {
     "manga" : "AJIN",
-    "lastRead" : 77,
-    "lastAvailable" : 77,
+    "lastRead" : 77.0,
+    "lastAvailable" : 77.0,
     "lastAvailableLanguage" : "FRENCH"
   },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
-    "lastRead" : 256,
-    "lastAvailable" : 257,
-    "lastAvailableLanguage" : "ENGLISH"
+    "lastRead" : 260.0,
+    "lastAvailable" : 260.0,
+    "lastAvailableLanguage" : "FRENCH"
   },
   "BORUTO" : {
     "manga" : "BORUTO",
-    "lastRead" : null,
-    "lastAvailable" : 47,
+    "lastRead" : 48.0,
+    "lastAvailable" : 48.0,
     "lastAvailableLanguage" : "ENGLISH"
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
-    "lastRead" : null,
-    "lastAvailable" : 59,
+    "lastRead" : 60.0,
+    "lastAvailable" : 60.0,
     "lastAvailableLanguage" : "ENGLISH"
   },
   "MHA" : {
     "manga" : "MHA",
-    "lastRead" : null,
-    "lastAvailable" : 277,
+    "lastRead" : 280.0,
+    "lastAvailable" : 280.0,
     "lastAvailableLanguage" : "FRENCH"
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",
-    "lastRead" : null,
-    "lastAvailable" : 984,
+    "lastRead" : 987.0,
+    "lastAvailable" : 987.0,
     "lastAvailableLanguage" : "FRENCH"
   },
   "ONE_PUNCH_MAN" : {
     "manga" : "ONE_PUNCH_MAN",
-    "lastRead" : null,
-    "lastAvailable" : 188,
+    "lastRead" : 189.0,
+    "lastAvailable" : 189.0,
     "lastAvailableLanguage" : "FRENCH"
   },
   "SHINGEKI" : {
     "manga" : "SHINGEKI",
-    "lastRead" : null,
-    "lastAvailable" : 130,
+    "lastRead" : 131.0,
+    "lastAvailable" : 131.0,
     "lastAvailableLanguage" : "ENGLISH"
   },
   "WORLD_TRIGGER" : {
     "manga" : "WORLD_TRIGGER",
-    "lastRead" : null,
-    "lastAvailable" : 197,
+    "lastRead" : 197.0,
+    "lastAvailable" : 197.0,
     "lastAvailableLanguage" : "FRENCH"
   }
 }

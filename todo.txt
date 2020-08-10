@@ -1,4 +1,4 @@
-Next time : Before Front: git hook
+Next time :
 
 Progress:  
 -----------------

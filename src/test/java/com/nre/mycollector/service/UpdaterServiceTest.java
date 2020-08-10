@@ -61,7 +61,7 @@ public class UpdaterServiceTest {
 		    mockHttpService);
 		updaterService.update();
 
-		//=== CURRENT STATE JSON SHOULD BE sUPDATED ===
+		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
 		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
