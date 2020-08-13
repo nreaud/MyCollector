@@ -33,6 +33,13 @@ public class MyCollectorApi {
 		return true;
 	}
 
+	@GetMapping("/mangas")
+	public Manga[] getMangas() throws IOException {
+		//TODO - should be debug
+		LOGGER.info("Calling getMangas");
+		return Manga.values();
+	}
+
 	@GetMapping("/mangaStates")
 	public Map<Manga, MangaState> getMangaStates() throws IOException {
 		//TODO - should be debug
