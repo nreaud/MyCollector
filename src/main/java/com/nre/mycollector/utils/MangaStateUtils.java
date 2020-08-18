@@ -1,5 +1,7 @@
 package com.nre.mycollector.utils;
 
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -12,12 +14,16 @@ import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.Release;
+import com.nre.mycollector.model.SortingMangas;
 
 public class MangaStateUtils {
 
 	private MangaStateUtils() {
 		//hidden
 	}
+
+	private static final Comparator<MangaState> ALPHABETIC_COMPARATOR = Comparator.comparing(MangaState::getManga)
+	    .thenComparing(MangaState::getLastAvailable).thenComparing(MangaState::getLastAvailableLanguage);
 
 	/**
 	 * Retourne la liste des manges à mettre à jour (peut être vide)
@@ -60,6 +66,12 @@ public class MangaStateUtils {
 	public static void printMapReleases(Map<Manga, Release> state, Logger logger) {
 		//TODO log debug + inject loglevel into method
 		state.entrySet().stream().peek(entry -> logger.info(entry.toString())).collect(Collectors.toList());
+	}
+
+	//TODO other sorting
+	public static Map<Manga, MangaState> sort(SortingMangas sortingStrategie, Map<Manga, MangaState> map) {
+		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(ALPHABETIC_COMPARATOR)).collect(
+		    Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 	}
 
 	/**

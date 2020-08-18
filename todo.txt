@@ -23,6 +23,7 @@ Back-End:
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
 	- properties de versions commune dans pom
+	- generic comparator
 		
 - Clean Code:
 	- SonarLint sur tout le code

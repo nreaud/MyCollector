@@ -16,6 +16,7 @@ import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.Release;
+import com.nre.mycollector.model.SortingMangas;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
 import com.nre.mycollector.utils.MangaTestUtils;
 
@@ -62,7 +63,8 @@ public class UpdaterServiceTest {
 		updaterService.update();
 
 		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
-		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE,
+		    SortingMangas.ALPHABETIC);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
@@ -105,7 +107,8 @@ public class UpdaterServiceTest {
 		updaterService.update();
 
 		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
-		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE,
+		    SortingMangas.ALPHABETIC);
 		assertEquals(3, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
@@ -157,7 +160,8 @@ public class UpdaterServiceTest {
 		updaterService.update();
 
 		//=== EXPECT ===
-		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE,
+		    SortingMangas.ALPHABETIC);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());
@@ -200,7 +204,8 @@ public class UpdaterServiceTest {
 		updaterService.update();
 
 		//=== EXPECT ===
-		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE);
+		Map<Manga, MangaState> stateAfterUpdate = StateFileService.readCurrentState(CURRENT_STATE,
+		    SortingMangas.ALPHABETIC);
 		assertEquals(2, stateAfterUpdate.size());
 		MangaState ajin = stateAfterUpdate.get(Manga.AJIN);
 		assertEquals(Manga.AJIN, ajin.getManga());

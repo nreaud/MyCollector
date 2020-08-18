@@ -21,6 +21,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.Release;
+import com.nre.mycollector.model.SortingMangas;
+import com.nre.mycollector.utils.MangaStateUtils;
 
 /**
  * This class load and unload MangaState from a json file
@@ -48,7 +50,7 @@ public class StateFileService {
 	 * @throws IOException
 	 */
 	public static Optional<MangaState> readCurrentMangaState(String pathMyCurrentState, Manga manga) throws IOException {
-		Map<Manga, MangaState> currentState = readCurrentState(pathMyCurrentState);
+		Map<Manga, MangaState> currentState = readCurrentState(pathMyCurrentState, SortingMangas.ALPHABETIC);
 		Optional<MangaState> res;
 		if (currentState.containsKey(manga)) {
 			res = Optional.of(currentState.get(manga));
@@ -58,18 +60,12 @@ public class StateFileService {
 		return res;
 	}
 
-	public static Map<Manga, MangaState> readCurrentState(String fileLocation) throws IOException {
+	public static Map<Manga, MangaState> readCurrentState(String fileLocation, SortingMangas sort) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		TypeReference<Map<Manga, MangaState>> typeRef = new TypeReference<Map<Manga, MangaState>>() {
 		}; // cause can't have .class from generic
-		return objectMapper.readValue(new File(fileLocation), typeRef);
-	}
-
-	public static SortedMap<Manga, MangaState> readCurrentStateSorted(String fileLocation) throws IOException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		TypeReference<TreeMap<Manga, MangaState>> typeRef = new TypeReference<TreeMap<Manga, MangaState>>() {
-		}; // cause can't have .class from generic
-		return objectMapper.readValue(new File(fileLocation), typeRef);
+		Map<Manga, MangaState> mangaStates = objectMapper.readValue(new File(fileLocation), typeRef);
+		return MangaStateUtils.sort(sort, mangaStates);
 	}
 
 	public static Map<Manga, Release> readWebSiteState(String pathCurrentStateWebSite) throws IOException {

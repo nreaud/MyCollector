@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.Release;
+import com.nre.mycollector.model.SortingMangas;
 import com.nre.mycollector.service.mapper.StateMapper;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
 import com.nre.mycollector.utils.MangaStateUtils;
@@ -56,7 +57,8 @@ public class UpdaterService {
 
 			StateFileService.writeWebSiteState(currentStateWebSite, pathCurrentStateWebSite);
 
-			Map<Manga, MangaState> myCurrentStates = StateFileService.readCurrentStateSorted(this.pathMyCurrentState);
+			Map<Manga, MangaState> myCurrentStates = StateFileService.readCurrentState(this.pathMyCurrentState,
+			    SortingMangas.ALPHABETIC);
 			LOGGER.info("=== My current state ===");
 			MangaStateUtils.print(myCurrentStates, LOGGER);
 
