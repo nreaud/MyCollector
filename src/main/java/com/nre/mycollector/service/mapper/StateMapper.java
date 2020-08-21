@@ -29,7 +29,7 @@ public class StateMapper {
 
 		return releases.entrySet().stream().map(entry -> {
 			Release release = entry.getValue();
-			return new MangaState(release.getManga(), (short) release.getNumber(), release.getLanguage());
+			return new MangaState(release.getManga(), release.getNumber(), release.getLanguage());
 		}).collect(Collectors.toMap(MangaState::getManga, state -> state, mergerDummy, TreeMap::new)); // needTreeMap to stay sorted, merger dummy
 		                                                                                              // to call toMap function
 	}

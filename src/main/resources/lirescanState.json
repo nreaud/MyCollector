@@ -1,13 +1,18 @@
 {
+  "AJIN" : {
+    "manga" : "AJIN",
+    "number" : 81.0,
+    "language" : "FRENCH"
+  },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
-    "number" : 260.0,
-    "language" : "FRENCH"
+    "number" : 261.0,
+    "language" : "RAW"
   },
   "BORUTO" : {
     "manga" : "BORUTO",
-    "number" : 48.0,
-    "language" : "ENGLISH"
+    "number" : 49.0,
+    "language" : "SPOIL"
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
@@ -16,12 +21,12 @@
   },
   "MHA" : {
     "manga" : "MHA",
-    "number" : 280.0,
-    "language" : "FRENCH"
+    "number" : 281.0,
+    "language" : "RAW"
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",
-    "number" : 987.0,
+    "number" : 988.0,
     "language" : "FRENCH"
   },
   "ONE_PUNCH_MAN" : {

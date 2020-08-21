@@ -62,9 +62,9 @@ public class UpdaterService {
 			LOGGER.info("=== My current state ===");
 			MangaStateUtils.print(myCurrentStates, LOGGER);
 
-			Map<Manga, MangaState> updatesWebSiteMS = StateMapper.mapFromReleases(updatesWebSite);
+			Map<Manga, MangaState> updatesWebSiteMangaStates = StateMapper.mapFromReleases(updatesWebSite);
 
-			Map<Manga, MangaState> updates = MangaStateUtils.getUpdates(myCurrentStates, updatesWebSiteMS);
+			Map<Manga, MangaState> updates = MangaStateUtils.getUpdates(myCurrentStates, updatesWebSiteMangaStates);
 			if (!updates.isEmpty()) {
 				//TODO stay info
 				LOGGER.info("=== Updates current state ===");

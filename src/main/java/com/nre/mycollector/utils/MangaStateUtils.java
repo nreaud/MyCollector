@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Logger;
@@ -22,8 +23,20 @@ public class MangaStateUtils {
 		//hidden
 	}
 
-	private static final Comparator<MangaState> ALPHABETIC_COMPARATOR = Comparator.comparing(MangaState::getManga)
+	private static final Comparator<MangaState> ALPHABETIC_SORTER = Comparator.comparing(MangaState::getManga)
 	    .thenComparing(MangaState::getLastAvailable).thenComparing(MangaState::getLastAvailableLanguage);
+
+	public static final Function<MangaState, Integer> TO_READ_FCT_EXTRACTOR = mangaState -> {
+		//TODO test 0.5
+		int toRead = (int) (mangaState.getLastAvailable() - mangaState.getLastRead());
+		if (toRead != 0 && Language.atLeast(mangaState.getLastAvailableLanguage(), Language.ENGLISH)) {
+			toRead = 1;
+		}
+		return toRead;
+	};
+
+	private static final Comparator<MangaState> TO_READ_SORTER = Comparator.comparing(TO_READ_FCT_EXTRACTOR)
+	    .thenComparing(ALPHABETIC_SORTER);
 
 	/**
 	 * Retourne la liste des manges à mettre à jour (peut être vide)
@@ -70,8 +83,23 @@ public class MangaStateUtils {
 
 	//TODO other sorting
 	public static Map<Manga, MangaState> sort(SortingMangas sortingStrategie, Map<Manga, MangaState> map) {
-		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(ALPHABETIC_COMPARATOR)).collect(
-		    Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		Map<Manga, MangaState> res;
+		switch (sortingStrategie) {
+		case ALPHABETIC:
+			res = map.entrySet().stream().sorted(Map.Entry.comparingByValue(ALPHABETIC_SORTER)).collect(Collectors
+			    .toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+			break;
+		case TO_READ:
+			res = map.entrySet().stream().sorted(Map.Entry.comparingByValue(TO_READ_SORTER)).collect(Collectors
+			    .toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+			break;
+		case NONE:
+		default:
+			res = map;
+			break;
+		}
+
+		return res;
 	}
 
 	/**

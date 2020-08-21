@@ -2,20 +2,20 @@
   "AJIN" : {
     "manga" : "AJIN",
     "lastRead" : 77.0,
-    "lastAvailable" : 77.0,
+    "lastAvailable" : 81.0,
     "lastAvailableLanguage" : "FRENCH"
   },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
     "lastRead" : 260.0,
-    "lastAvailable" : 260.0,
-    "lastAvailableLanguage" : "FRENCH"
+    "lastAvailable" : 261.0,
+    "lastAvailableLanguage" : "RAW"
   },
   "BORUTO" : {
     "manga" : "BORUTO",
     "lastRead" : 48.0,
-    "lastAvailable" : 48.0,
-    "lastAvailableLanguage" : "ENGLISH"
+    "lastAvailable" : 49.0,
+    "lastAvailableLanguage" : "SPOIL"
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
@@ -26,13 +26,13 @@
   "MHA" : {
     "manga" : "MHA",
     "lastRead" : 280.0,
-    "lastAvailable" : 280.0,
-    "lastAvailableLanguage" : "FRENCH"
+    "lastAvailable" : 281.0,
+    "lastAvailableLanguage" : "RAW"
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",
     "lastRead" : 987.0,
-    "lastAvailable" : 987.0,
+    "lastAvailable" : 988.0,
     "lastAvailableLanguage" : "FRENCH"
   },
   "ONE_PUNCH_MAN" : {

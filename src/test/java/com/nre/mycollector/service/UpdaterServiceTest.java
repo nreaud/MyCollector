@@ -73,7 +73,7 @@ public class UpdaterServiceTest {
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
-		assertEquals(253, bl.getLastAvailable(), DELTA);
+		assertEquals(252.5, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.SPOIL, bl.getLastAvailableLanguage());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===
@@ -86,7 +86,7 @@ public class UpdaterServiceTest {
 
 		Release blLs = lirescanState.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, blLs.getManga());
-		assertEquals(253, blLs.getNumber(), DELTA);
+		assertEquals(252.5, blLs.getNumber(), DELTA);
 		assertEquals(Language.SPOIL, blLs.getLanguage());
 	}
 
@@ -241,7 +241,7 @@ public class UpdaterServiceTest {
 	private Map<Manga, Release> getMapReleases() {
 		Map<Manga, Release> res = new HashMap<>();
 		res.put(Manga.AJIN, new Release(Manga.AJIN, 77, Language.FRENCH));
-		res.put(Manga.BLACK_CLOVER, new Release(Manga.BLACK_CLOVER, 253, Language.SPOIL));
+		res.put(Manga.BLACK_CLOVER, new Release(Manga.BLACK_CLOVER, 252.5f, Language.SPOIL));
 		return res;
 	}
 
