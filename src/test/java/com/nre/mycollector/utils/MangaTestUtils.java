@@ -50,4 +50,10 @@ public class MangaTestUtils {
 		return res;
 	}
 
+	public static Map<Manga, MangaState> getInitStatePostLastReadButSomeLeftToRead() {
+		Map<Manga, MangaState> res = new HashMap<>();
+		res.put(Manga.SOLO_LEVELING, new MangaState(Manga.SOLO_LEVELING, -1f, 105, Language.FRENCH));
+		return res;
+	}
+
 }

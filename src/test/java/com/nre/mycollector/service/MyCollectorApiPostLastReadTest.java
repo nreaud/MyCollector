@@ -8,11 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +35,6 @@ public class MyCollectorApiPostLastReadTest {
 	@Autowired
 	private MockMvc mvc;
 
-	@Before
-	public void initBeforeEach() throws IOException {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
-		StateFileService.writeCurrentState(initState, CURRENT_STATE);
-	}
-
 	@After
 	public void afterEach() {
 		File file = new File(CURRENT_STATE);
@@ -57,15 +49,21 @@ public class MyCollectorApiPostLastReadTest {
 
 	@Test
 	public void lastReadTest() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/252").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
 		    .andExpect(jsonPath("$.lastRead", is(252.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
-		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())))
+		    .andExpect(jsonPath("$.toRead", is(false)));
 	}
 
 	@Test
 	public void lastReadAlreadyReadTest() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/251").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
 		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
@@ -75,19 +73,40 @@ public class MyCollectorApiPostLastReadTest {
 
 	@Test
 	public void lastReadButNotLasAvailable() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/250").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
 		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
-		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())))
+		    .andExpect(jsonPath("$.toRead", is(true)));
 
 	}
 
 	@Test
 	public void lastReadNotAvailableYet() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/253").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
 		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
-		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())))
+		    .andExpect(jsonPath("$.toRead", is(true)));
+
+	}
+
+	@Test
+	public void chaptersReadButSomeLeftToRead() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitStatePostLastReadButSomeLeftToRead();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
+		mvc.perform(post("/mangaStates/SOLO_LEVELING/lastRead/50").contentType(MediaType.APPLICATION_JSON))
+		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.SOLO_LEVELING.name())))
+		    .andExpect(jsonPath("$.lastRead", is(50.))).andExpect(jsonPath("$.lastAvailable", is(105.)))
+		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())))
+		    .andExpect(jsonPath("$.toRead", is(true)));
 
 	}
 

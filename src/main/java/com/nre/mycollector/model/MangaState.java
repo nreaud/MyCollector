@@ -12,6 +12,7 @@ public class MangaState implements Comparable<MangaState> {
 	private float lastRead;
 	private float lastAvailable;
 	private Language lastAvailableLanguage;
+	private boolean toRead;
 
 	public MangaState() {
 		// NullPointer proof
@@ -25,6 +26,7 @@ public class MangaState implements Comparable<MangaState> {
 		this.manga = manga;
 		this.lastAvailable = lastAvailable;
 		this.lastAvailableLanguage = lastAvailableLanguage;
+		updateToRead();
 	}
 
 	public MangaState(Manga manga, float lastRead, float lastAvailable, Language lastAvailableLanguage) {
@@ -32,6 +34,7 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastRead = lastRead;
 		this.lastAvailable = lastAvailable;
 		this.lastAvailableLanguage = lastAvailableLanguage;
+		updateToRead();
 	}
 
 	public Manga getManga() {
@@ -66,16 +69,19 @@ public class MangaState implements Comparable<MangaState> {
 		this.lastAvailable = lastAvailable;
 	}
 
-	public static boolean moreRecent(MangaState currentState, MangaState newState) {
-		return (newState.getLastAvailable() > currentState.getLastAvailable())
-		    || ((newState.getLastAvailable() == currentState.getLastAvailable())
-		        && (Language.moreRecent(newState.getLastAvailableLanguage(), currentState.getLastAvailableLanguage())));
+	public boolean isToRead() {
+		return toRead;
 	}
 
-	@Override
-	public String toString() {
-		return "State [manga=" + manga + ", lastRead=" + lastRead + ", lastAvailable=" + lastAvailable
-		    + ", lastAvailableLanguage=" + lastAvailableLanguage + "]";
+	public void setToRead(boolean toRead) {
+		this.toRead = toRead;
+	}
+
+	public MangaState updateToRead() {
+		int nbChapterstoRead = Math.round(lastAvailable - lastRead); //arrondi au dessus si chap 0.5
+		toRead = (nbChapterstoRead == 1 && Language.atLeast(lastAvailableLanguage, Language.ENGLISH))
+		    || (nbChapterstoRead > 1);  //si 1 chapitre à lire, il faut au moins anglais
+		return this;
 	}
 
 	@Override
@@ -97,37 +103,6 @@ public class MangaState implements Comparable<MangaState> {
 			}
 		}
 		return res;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Float.floatToIntBits(lastAvailable);
-		result = prime * result + ((lastAvailableLanguage == null) ? 0 : lastAvailableLanguage.hashCode());
-		result = prime * result + Float.floatToIntBits(lastRead);
-		result = prime * result + ((manga == null) ? 0 : manga.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MangaState other = (MangaState) obj;
-		if (Float.floatToIntBits(lastAvailable) != Float.floatToIntBits(other.lastAvailable))
-			return false;
-		if (lastAvailableLanguage != other.lastAvailableLanguage)
-			return false;
-		if (Float.floatToIntBits(lastRead) != Float.floatToIntBits(other.lastRead))
-			return false;
-		if (manga != other.manga)
-			return false;
-		return true;
 	}
 
 }

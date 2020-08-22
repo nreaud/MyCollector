@@ -27,14 +27,7 @@ public class MangaStateUtils {
 	    .thenComparing(MangaState::getLastAvailable).thenComparing(MangaState::getLastAvailableLanguage);
 
 	public static final Function<MangaState, Integer> TO_READ_FCT_EXTRACTOR = mangaState -> {
-		//TODO test 0.5
-		int toRead = Math.round(mangaState.getLastAvailable() - mangaState.getLastRead());
-		if (toRead == 1 && !Language.atLeast(mangaState.getLastAvailableLanguage(), Language.ENGLISH)) { //si 1 chapitre à lire, il faut au moins anglais
-			toRead = 0;
-		} else if (toRead >= 1) { //si plus d'un chapitre à lire, pas besoin de checker langue
-			toRead = -1; //tout les "à lire" sont au même plan, (si 15 chapitres à lire pas plus important que si 1 seul)
-		}
-		return toRead;
+		return mangaState.isToRead() ? -1 : 1;
 	};
 
 	private static final Comparator<MangaState> TO_READ_SORTER = Comparator.comparing(TO_READ_FCT_EXTRACTOR)
@@ -56,7 +49,7 @@ public class MangaStateUtils {
 			if (currentState == null) { // Might be the case with a new manga
 				currentState = new MangaState(manga, (short) -1, Language.SPOIL);
 			}
-			return MangaState.moreRecent(currentState, newState);
+			return moreRecent(currentState, newState);
 		}).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 	}
 
@@ -71,6 +64,12 @@ public class MangaStateUtils {
 			}
 			return Release.moreRecent(currentState, newState);
 		}).collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+	}
+
+	public static boolean moreRecent(MangaState currentState, MangaState newState) {
+		return (newState.getLastAvailable() > currentState.getLastAvailable())
+		    || ((newState.getLastAvailable() == currentState.getLastAvailable())
+		        && (Language.moreRecent(newState.getLastAvailableLanguage(), currentState.getLastAvailableLanguage())));
 	}
 
 	public static void print(Map<Manga, MangaState> state, Logger logger) {

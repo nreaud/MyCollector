@@ -3,12 +3,14 @@
 		"manga": "AJIN",
 		"lastRead": 0.0,
 		"lastAvailable": 77.0,
-		"lastAvailableLanguage": "ENGLISH"
+		"lastAvailableLanguage": "ENGLISH",
+		"toRead": true
 	},
 	"BLACK_CLOVER": {
 		"manga": "BLACK_CLOVER",
 		"lastRead": 251.0,
 		"lastAvailable": 252.0,
-		"lastAvailableLanguage": "FRENCH"
+		"lastAvailableLanguage": "FRENCH",
+		"toRead": true
 	}
 }

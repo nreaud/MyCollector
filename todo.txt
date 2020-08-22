@@ -1,4 +1,4 @@
-Next time : test sort by to read
+Next time : 
 
 Progress:  
 -----------------
@@ -23,10 +23,9 @@ Back-End:
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
 	- properties de versions commune dans pom
-	- generic comparator
+	- généricité
 		
 - Clean Code:
-	- SonarLint sur tout le code
 	
 - Projet mature:
 	- API mature?
@@ -37,11 +36,7 @@ Back-End:
 	- Lister chaque catégorie de todoList finies (pour présentation projet)
 
 ---------------------------------------------------------------------
-Front-End:
-- Afficher à lire
-- TUs
-- Genre Sonar
 	
 Globals:
-- Mettre en ligne (serveur)
+- Mettre en ligne (serveur) - dockerfile
 - 

@@ -64,6 +64,7 @@ public class MyCollectorApi {
 			MangaState currentMangaState = currentState.get(manga);
 			if (currentMangaState.getLastRead() < lastRead && currentMangaState.getLastAvailable() >= lastRead) {
 				currentMangaState.setLastRead(lastRead);
+				currentMangaState.updateToRead();
 				currentState.put(manga, currentMangaState);
 				StateFileService.writeCurrentState(currentState, pathMyCurrentState);
 				res = currentMangaState;
