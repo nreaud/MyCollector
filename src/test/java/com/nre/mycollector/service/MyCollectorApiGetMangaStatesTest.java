@@ -1,17 +1,13 @@
 package com.nre.mycollector.service;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.utils.MangaTestUtils;
+import com.nre.mycollector.utils.SimpleJSONFileReader;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
@@ -32,14 +29,13 @@ import com.nre.mycollector.utils.MangaTestUtils;
 public class MyCollectorApiGetMangaStatesTest {
 
 	final String CURRENT_STATE = "src/test/resources/apiGetMangaStatesCurrentStateTest.json";
+
+	final String PATH_EXPECTED_JSON_GET_MANGA_STATES = "src/test/resources/getMangaStatesExpected.json";
+
+	final String PATH_EXPECTED_JSON_GET_MANGA_STATES_SORT_TO_READ = "src/test/resources/getMangaStatesSortToReadExpected.json";
+
 	@Autowired
 	private MockMvc mvc;
-
-	@Before
-	public void initBeforeEach() throws IOException {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
-		StateFileService.writeCurrentState(initState, CURRENT_STATE);
-	}
 
 	@After
 	public void afterEach() {
@@ -55,14 +51,35 @@ public class MyCollectorApiGetMangaStatesTest {
 
 	@Test
 	public void getMangaStatesTest() throws Exception {
-		mvc.perform(get("/mangaStates").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-		    .andExpect(jsonPath("$.AJIN.manga", is(Manga.AJIN.name()))).andExpect(jsonPath("$.AJIN.lastRead", is(0.)))
-		    .andExpect(jsonPath("$.AJIN.lastAvailable", is(77.)))
-		    .andExpect(jsonPath("$.AJIN.lastAvailableLanguage", is(Language.ENGLISH.name())))
-		    .andExpect(jsonPath("$.BLACK_CLOVER.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.BLACK_CLOVER.lastRead", is(251.)))
-		    .andExpect(jsonPath("$.BLACK_CLOVER.lastAvailable", is(252.)))
-		    .andExpect(jsonPath("$.BLACK_CLOVER.lastAvailableLanguage", is(Language.FRENCH.name())));
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
+		String jsonExpected = SimpleJSONFileReader.readFileAsString(PATH_EXPECTED_JSON_GET_MANGA_STATES);
+
+		mvc.perform(get("/mangaStates").contentType(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
+		    .andExpect(status().isOk()).andExpect(content().json(jsonExpected));
+	}
+
+	@Test
+	public void getMangaStatesSortAlphabeticTest() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentStateToTestSortAlphabetic();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
+		String jsonExpected = SimpleJSONFileReader.readFileAsString(PATH_EXPECTED_JSON_GET_MANGA_STATES);
+
+		mvc.perform(get("/mangaStates").contentType(MediaType.APPLICATION_JSON)).andDo(MockMvcResultHandlers.print())
+		    .andExpect(status().isOk()).andExpect(content().json(jsonExpected));
+	}
+
+	@Test
+	public void getMangaStatesSortByToReadTest() throws Exception {
+		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentStateToTestSortByToRead();
+		StateFileService.writeCurrentState(initState, CURRENT_STATE);
+
+		String jsonExpected = SimpleJSONFileReader.readFileAsString(PATH_EXPECTED_JSON_GET_MANGA_STATES_SORT_TO_READ);
+
+		mvc.perform(get("/mangaStates?sort=TO_READ").contentType(MediaType.APPLICATION_JSON))
+		    .andDo(MockMvcResultHandlers.print()).andExpect(status().isOk()).andExpect(content().json(jsonExpected));
 	}
 
 }

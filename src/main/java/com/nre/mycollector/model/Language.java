@@ -10,7 +10,7 @@ public enum Language {
 	SPOIL, RAW, ENGLISH, FRENCH; // ordered from "less ready" to "most ready"
 
 	public static boolean atLeast(Language language, Language minimumLanguage) {
-		return language.ordinal() >= language.ordinal();
+		return language.ordinal() >= minimumLanguage.ordinal();
 	}
 
 	public static boolean moreRecent(Language newLanguage, Language currentLanguage) {

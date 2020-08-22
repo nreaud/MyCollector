@@ -28,9 +28,11 @@ public class MangaStateUtils {
 
 	public static final Function<MangaState, Integer> TO_READ_FCT_EXTRACTOR = mangaState -> {
 		//TODO test 0.5
-		int toRead = (int) (mangaState.getLastAvailable() - mangaState.getLastRead());
-		if (toRead != 0 && Language.atLeast(mangaState.getLastAvailableLanguage(), Language.ENGLISH)) {
-			toRead = 1;
+		int toRead = Math.round(mangaState.getLastAvailable() - mangaState.getLastRead());
+		if (toRead == 1 && !Language.atLeast(mangaState.getLastAvailableLanguage(), Language.ENGLISH)) { //si 1 chapitre à lire, il faut au moins anglais
+			toRead = 0;
+		} else if (toRead >= 1) { //si plus d'un chapitre à lire, pas besoin de checker langue
+			toRead = -1; //tout les "à lire" sont au même plan, (si 15 chapitres à lire pas plus important que si 1 seul)
 		}
 		return toRead;
 	};

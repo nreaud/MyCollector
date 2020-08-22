@@ -1,0 +1,32 @@
+{
+	"BLACK_CLOVER": {
+		"manga": "BLACK_CLOVER",
+		"lastRead": 251.0,
+		"lastAvailable": 252.0,
+		"lastAvailableLanguage": "FRENCH"
+	},
+	"BORUTO": {
+		"manga": "BORUTO",
+		"lastRead": 48.0,
+		"lastAvailable": 48.5,
+		"lastAvailableLanguage": "ENGLISH"
+	},
+	"ONE_PIECE": {
+		"manga": "ONE_PIECE",
+		"lastRead": 986.0,
+		"lastAvailable": 987.5,
+		"lastAvailableLanguage": "SPOIL"
+	},
+	"AJIN": {
+		"manga": "AJIN",
+		"lastRead": 77.0,
+		"lastAvailable": 77.0,
+		"lastAvailableLanguage": "ENGLISH"
+	},
+	"MHA": {
+		"manga": "MHA",
+		"lastRead": 280.0,
+		"lastAvailable": 281.0,
+		"lastAvailableLanguage": "RAW"
+	}
+}
