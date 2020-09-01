@@ -10,8 +10,7 @@ Back-End:
 		- rythme de parution
 		- prochaine sortie prévue
 		- hype level
-	- mangas et langages chargés dynamiquements depuis ficher de prop
-	- (Optionel) Ajouter nouveau site source, simplement en ajoutant une url dans un fichier de props
+	- Sortir lastRead & toRead de mangaState -> 1 release state global + 1 mangaState par user
 		
 -Optis/Corrections:
 	- Handle Http errors when checking updates (lirescan,...) 
@@ -23,7 +22,8 @@ Back-End:
 	- git hook before commit: maven clean install (with tests) + run ok
 	- tools.jar lancement eclipse
 	- properties de versions commune dans pom
-	- généricité
+	- mangas et langages chargés dynamiquements depuis ficher de prop
+	- (Optionel) Ajouter nouveau site source, simplement en ajoutant une url dans un fichier de props
 		
 - Clean Code:
 	
@@ -39,4 +39,6 @@ Back-End:
 	
 Globals:
 - Mettre en ligne (serveur) - dockerfile
-- 
+- Collecter plusieurs sites
+- Notifs tel
+- Front propre

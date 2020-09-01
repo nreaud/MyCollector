@@ -62,7 +62,7 @@ public class MyCollectorApi {
 		Map<Manga, MangaState> currentState = StateFileService.readCurrentState(pathMyCurrentState, SortingMangas.NONE);
 		if (currentState.containsKey(manga)) {
 			MangaState currentMangaState = currentState.get(manga);
-			if (currentMangaState.getLastRead() < lastRead && currentMangaState.getLastAvailable() >= lastRead) {
+			if (currentMangaState.getLastAvailable() >= lastRead) {
 				currentMangaState.setLastRead(lastRead);
 				currentMangaState.updateToRead();
 				currentState.put(manga, currentMangaState);
@@ -76,4 +76,5 @@ public class MyCollectorApi {
 		}
 		return res;
 	}
+
 }

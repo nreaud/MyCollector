@@ -60,18 +60,6 @@ public class MyCollectorApiPostLastReadTest {
 	}
 
 	@Test
-	public void lastReadAlreadyReadTest() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
-		StateFileService.writeCurrentState(initState, CURRENT_STATE);
-
-		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/251").contentType(MediaType.APPLICATION_JSON))
-		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
-		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())));
-
-	}
-
-	@Test
 	public void lastReadButNotLasAvailable() throws Exception {
 		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);

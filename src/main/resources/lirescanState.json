@@ -6,8 +6,8 @@
   },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
-    "number" : 261.0,
-    "language" : "ENGLISH"
+    "number" : 262.0,
+    "language" : "FRENCH"
   },
   "BORUTO" : {
     "manga" : "BORUTO",
@@ -16,13 +16,13 @@
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
-    "number" : 62.0,
+    "number" : 63.0,
     "language" : "ENGLISH"
   },
   "MHA" : {
     "manga" : "MHA",
-    "number" : 281.0,
-    "language" : "RAW"
+    "number" : 282.0,
+    "language" : "FRENCH"
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",

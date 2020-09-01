@@ -77,6 +77,12 @@ public class MangaState implements Comparable<MangaState> {
 		this.toRead = toRead;
 	}
 
+	@Override
+	public String toString() {
+		return "MangaState [manga=" + manga + ", lastRead=" + lastRead + ", lastAvailable=" + lastAvailable
+		    + ", lastAvailableLanguage=" + lastAvailableLanguage + ", toRead=" + toRead + "]";
+	}
+
 	public MangaState updateToRead() {
 		int nbChapterstoRead = Math.round(lastAvailable - lastRead); //arrondi au dessus si chap 0.5
 		toRead = (nbChapterstoRead == 1 && Language.atLeast(lastAvailableLanguage, Language.ENGLISH))
