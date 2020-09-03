@@ -60,13 +60,13 @@ public class MyCollectorApiPostLastReadTest {
 	}
 
 	@Test
-	public void lastReadButNotLasAvailable() throws Exception {
+	public void lastReadOldChapter() throws Exception {
 		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
-		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/250").contentType(MediaType.APPLICATION_JSON))
+		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/27").contentType(MediaType.APPLICATION_JSON))
 		    .andExpect(status().isOk()).andExpect(jsonPath("$.manga", is(Manga.BLACK_CLOVER.name())))
-		    .andExpect(jsonPath("$.lastRead", is(251.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
+		    .andExpect(jsonPath("$.lastRead", is(27.))).andExpect(jsonPath("$.lastAvailable", is(252.)))
 		    .andExpect(jsonPath("$.lastAvailableLanguage", is(Language.FRENCH.name())))
 		    .andExpect(jsonPath("$.toRead", is(true)));
 

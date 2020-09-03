@@ -1,10 +1,12 @@
 package com.nre.mycollector.service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nre.mycollector.model.Manga;
+import com.nre.mycollector.model.MangaDTO;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.SortingMangas;
 
@@ -23,6 +26,9 @@ public class MyCollectorApi {
 
 	@Value("${path.mangastate.currentstate}")
 	private String pathMyCurrentState;
+
+	@Autowired
+	private MangaService mangaService;
 
 	private static final Logger LOGGER = LogManager.getLogger(MyCollectorApi.class.getName());
 
@@ -34,11 +40,13 @@ public class MyCollectorApi {
 		return true;
 	}
 
+	//TODO manga should be one resource with imgs, review getters
+
 	@GetMapping("/mangas")
-	public Manga[] getMangas() {
+	public List<MangaDTO> getMangas() {
 		//TODO - should be debug
 		LOGGER.info("Calling getMangas");
-		return Manga.values();
+		return mangaService.getMangasDTO();
 	}
 
 	@GetMapping("/mangaStates")

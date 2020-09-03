@@ -1,4 +1,5 @@
 Next time : 
+	- cf todos
 
 Progress:  
 -----------------
@@ -11,6 +12,7 @@ Back-End:
 		- prochaine sortie prévue
 		- hype level
 	- Sortir lastRead & toRead de mangaState -> 1 release state global + 1 mangaState par user
+	- When changing conf no need to restart app
 		
 -Optis/Corrections:
 	- Handle Http errors when checking updates (lirescan,...) 

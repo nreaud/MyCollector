@@ -1,0 +1,15 @@
+path:
+  resources: src/test/resources
+  mangaimgurl: someMangaImgTestUrl
+  mangaimgs:
+    ajin: AjinTest15.png
+    blackclover: BlackCloverTest8.jpg
+    
+thread:
+  minutesbeforenewupdate:
+    lirescan: 1000
+  
+url:
+  mangawebsite:
+    lirescan: urlTestLireScan
+    

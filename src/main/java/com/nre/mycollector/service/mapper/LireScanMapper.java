@@ -24,6 +24,7 @@ public class LireScanMapper {
 		//hidden
 	}
 
+	//TODO intelligent one (guess from names)
 	static {
 		Map<String, Manga> mapMangaNames = new HashMap<>();
 		mapMangaNames.put("Ajin", Manga.AJIN);
