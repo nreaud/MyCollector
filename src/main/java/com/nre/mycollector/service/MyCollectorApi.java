@@ -1,7 +1,6 @@
 package com.nre.mycollector.service;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -43,10 +42,10 @@ public class MyCollectorApi {
 	//TODO manga should be one resource with imgs, review getters
 
 	@GetMapping("/mangas")
-	public List<MangaDTO> getMangas() {
+	public Map<Manga, MangaDTO> getMangas() {
 		//TODO - should be debug
 		LOGGER.info("Calling getMangas");
-		return mangaService.getMangasDTO();
+		return mangaService.getMangas();
 	}
 
 	@GetMapping("/mangaStates")

@@ -1,34 +1,25 @@
 package com.nre.mycollector.model;
 
 public class MangaDTO {
-	private String img;
-	private Manga manga;
+
+	private String imgUrl;
 	private String name;
 
 	public MangaDTO() {
 
 	}
 
-	public MangaDTO(String img, Manga manga, String name) {
-		this.img = img;
-		this.manga = manga;
+	public MangaDTO(String imgUrl, String name) {
+		this.imgUrl = imgUrl;
 		this.name = name;
 	}
 
-	public String getImg() {
-		return img;
+	public String getImgUrl() {
+		return imgUrl;
 	}
 
-	public void setImg(String img) {
-		this.img = img;
-	}
-
-	public Manga getManga() {
-		return manga;
-	}
-
-	public void setManga(Manga manga) {
-		this.manga = manga;
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	public String getName() {
@@ -41,7 +32,7 @@ public class MangaDTO {
 
 	@Override
 	public String toString() {
-		return "MangaDTO [img=" + img + ", manga=" + manga + ", name=" + name + "]";
+		return "MangaDTO [imgUrl=" + imgUrl + ", name=" + name + "]";
 	}
 
 }
