@@ -6,55 +6,111 @@
     "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
+  "ATTACK_ON_TITAN" : {
+    "manga" : "ATTACK_ON_TITAN",
+    "lastRead" : 131.0,
+    "lastAvailable" : 131.0,
+    "lastAvailableLanguage" : "ENGLISH",
+    "toRead" : false
+  },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
     "lastRead" : 260.0,
-    "lastAvailable" : 263.0,
-    "lastAvailableLanguage" : "SPOIL",
+    "lastAvailable" : 265.0,
+    "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
   "BORUTO" : {
     "manga" : "BORUTO",
     "lastRead" : 48.0,
-    "lastAvailable" : 49.0,
-    "lastAvailableLanguage" : "SPOIL",
+    "lastAvailable" : 50.0,
+    "lastAvailableLanguage" : "ENGLISH",
     "toRead" : false
+  },
+  "CHAINSAW_MAN": {
+  	"manga": "CHAINSAW_MAN",
+  	"lastRead": 85.0,
+  	"lastAvailable": 85.0,
+  	"lastAvailableLanguage": "FRENCH",
+  	"toRead": false 
+  },
+  "ENIGMA" : {
+    "manga" : "ENIGMA",
+    "lastRead" : 1.0,
+    "lastAvailable" : 56.0,
+    "lastAvailableLanguage" : "FRENCH",
+    "toRead" : true
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
     "lastRead" : 62.0,
-    "lastAvailable" : 63.0,
+    "lastAvailable" : 64.0,
+    "lastAvailableLanguage" : "ENGLISH",
+    "toRead" : false
+  },
+  "JUJUTSU_KAISEN" : {
+    "manga" : "JUJUTSU_KAISEN",
+    "lastRead" : 122.0,
+    "lastAvailable" : 122.0,
     "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
   "MHA" : {
     "manga" : "MHA",
     "lastRead" : 281.0,
-    "lastAvailable" : 283.0,
-    "lastAvailableLanguage" : "SPOIL",
+    "lastAvailable" : 284.0,
+    "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",
     "lastRead" : 988.0,
-    "lastAvailable" : 989.0,
-    "lastAvailableLanguage" : "RAW",
+    "lastAvailable" : 990.0,
+    "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
   "ONE_PUNCH_MAN" : {
     "manga" : "ONE_PUNCH_MAN",
     "lastRead" : 189.0,
-    "lastAvailable" : 189.0,
+    "lastAvailable" : 191.0,
     "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
-  "SHINGEKI" : {
-    "manga" : "SHINGEKI",
-    "lastRead" : 131.0,
-    "lastAvailable" : 131.0,
-    "lastAvailableLanguage" : "ENGLISH",
+  "ONE_PUNCH_MAN_ONE" : {
+    "manga" : "ONE_PUNCH_MAN_ONE",
+    "lastRead" : 129.0,
+    "lastAvailable" : 129.0,
+    "lastAvailableLanguage" : "FRENCH",
     "toRead" : false
   },
+  "PLATINIUM_END" : {
+    "manga" : "PLATINIUM_END",
+    "lastRead" : 1.0,
+    "lastAvailable" : 53.0,
+    "lastAvailableLanguage" : "FRENCH",
+    "toRead" : true
+  },
+  "SOLO_LEVELING" : {
+    "manga" : "SOLO_LEVELING",
+    "lastRead" : 119.0,
+    "lastAvailable" : 119.0,
+    "lastAvailableLanguage" : "FRENCH",
+    "toRead" : false
+  }, 
+  "THE_PROMISED_NEVERLAND" : {
+    "manga" : "THE_PROMISED_NEVERLAND",
+    "lastRead" : 1.0,
+    "lastAvailable" : 181.0,
+    "lastAvailableLanguage" : "FRENCH",
+    "toRead" : true
+  }, 
+  "TOKYO_REVENGERS" : {
+    "manga" : "TOKYO_REVENGERS",
+    "lastRead" : 173.0,
+    "lastAvailable" : 173.0,
+    "lastAvailableLanguage" : "FRENCH",
+    "toRead" : false
+  },  
   "WORLD_TRIGGER" : {
     "manga" : "WORLD_TRIGGER",
     "lastRead" : 197.0,

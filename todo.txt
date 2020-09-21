@@ -13,6 +13,8 @@ Back-End:
 		- hype level
 	- Sortir lastRead & toRead de mangaState -> 1 release state global + 1 mangaState par user
 	- When changing conf no need to restart app
+	- Check procédure complète ajout nouveau manga (baki) front + back (levées d'erreur explicite, fichier de conf, procédure facile)
+	- Ajout statut fini
 		
 -Optis/Corrections:
 	- Handle Http errors when checking updates (lirescan,...) 

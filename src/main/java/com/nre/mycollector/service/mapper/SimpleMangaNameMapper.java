@@ -17,9 +17,11 @@ public class SimpleMangaNameMapper {
 	static {
 		mapConfWithEnum = new HashMap<>();
 		mapConfWithEnum.put("ajin", Manga.AJIN);
+		mapConfWithEnum.put("attackontitan", Manga.ATTACK_ON_TITAN);
 		mapConfWithEnum.put("blackclover", Manga.BLACK_CLOVER);
 		mapConfWithEnum.put("boruto", Manga.BORUTO);
 		mapConfWithEnum.put("chainsawman", Manga.CHAINSAW_MAN);
+		mapConfWithEnum.put("enigma", Manga.ENIGMA);
 		mapConfWithEnum.put("fairtytail100yearsquest", Manga.FAIRY_TAIL_100_Y);
 		mapConfWithEnum.put("jujutsukaisen", Manga.JUJUTSU_KAISEN);
 		mapConfWithEnum.put("myheroacademia", Manga.MHA);
@@ -27,7 +29,6 @@ public class SimpleMangaNameMapper {
 		mapConfWithEnum.put("onepunchman", Manga.ONE_PUNCH_MAN);
 		mapConfWithEnum.put("onepunchmanone", Manga.ONE_PUNCH_MAN_ONE);
 		mapConfWithEnum.put("platiniumend", Manga.PLATINIUM_END);
-		mapConfWithEnum.put("shingekinokyojin", Manga.SHINGEKI);
 		mapConfWithEnum.put("sololeveling", Manga.SOLO_LEVELING);
 		mapConfWithEnum.put("thepromisedneverland", Manga.THE_PROMISED_NEVERLAND);
 		mapConfWithEnum.put("tokyorevengers", Manga.TOKYO_REVENGERS);

@@ -4,40 +4,40 @@
     "number" : 81.0,
     "language" : "FRENCH"
   },
+  "ATTACK_ON_TITAN" : {
+    "manga" : "ATTACK_ON_TITAN",
+    "number" : 131.0,
+    "language" : "ENGLISH"
+  },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
-    "number" : 263.0,
-    "language" : "SPOIL"
+    "number" : 265.0,
+    "language" : "FRENCH"
   },
   "BORUTO" : {
     "manga" : "BORUTO",
-    "number" : 49.0,
-    "language" : "SPOIL"
+    "number" : 50.0,
+    "language" : "ENGLISH"
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
-    "number" : 63.0,
-    "language" : "FRENCH"
+    "number" : 64.0,
+    "language" : "ENGLISH"
   },
   "MHA" : {
     "manga" : "MHA",
-    "number" : 283.0,
-    "language" : "SPOIL"
+    "number" : 284.0,
+    "language" : "FRENCH"
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",
-    "number" : 989.0,
-    "language" : "RAW"
+    "number" : 990.0,
+    "language" : "FRENCH"
   },
   "ONE_PUNCH_MAN" : {
     "manga" : "ONE_PUNCH_MAN",
-    "number" : 189.0,
+    "number" : 191.0,
     "language" : "FRENCH"
-  },
-  "SHINGEKI" : {
-    "manga" : "SHINGEKI",
-    "number" : 131.0,
-    "language" : "ENGLISH"
   },
   "WORLD_TRIGGER" : {
     "manga" : "WORLD_TRIGGER",

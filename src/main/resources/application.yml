@@ -1,18 +1,20 @@
 path:
   resources: src/main/resources
-  mangaimgurl: notImplementedURL
+  mangaimgurl: https://notImplementedURL.com
   mangaimgs:
-    ajin: Ajin15.png
+    ajin: Ajin15.jpg
+    attackontitan: ShingekiNoKyojin26.jpg
     blackclover: BlackClover8.jpg
     boruto: Boruto5.jpg
     chainsawman: Chainsawman1.jpg
     fairtytail100yearsquest: FairyTail100YearsQuest5.jpg
+    enigma: Enigma5.jpg
+    jujutsukaisen: JujutsuKaisen1.jpg
     myheroacademia: MyHeroAcademia27.jpg
     onepiece: OnePiece93.jpg
     onepunchman: OnePunchManSpecial.jpg
     onepunchmanone: OnePunchManOne.jpg
     platiniumend: PlatiniumEnd5.jpg
-    shingekinokyojin: ShingekiNoKyojin26.jpg
     sololeveling: SoloLevelingSeason2.jpg
     thepromisedneverland: ThePromisedNeverLand5.jpg
     tokyorevengers: TokyoRevengers13.jpg
