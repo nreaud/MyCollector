@@ -9,4 +9,9 @@ public class Pair<T, U> {
 		this.two = two;
 	}
 
+	@Override
+	public String toString() {
+		return "Pair [" + one + ", " + two + "]";
+	}
+
 }

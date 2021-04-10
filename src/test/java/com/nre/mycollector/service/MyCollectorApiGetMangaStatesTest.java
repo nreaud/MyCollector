@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
-import com.nre.mycollector.utils.MangaTestUtils;
+import com.nre.mycollector.utils.MangaTestsInitializer;
 import com.nre.mycollector.utils.SimpleJSONFileReader;
 
 @RunWith(SpringRunner.class)
@@ -51,7 +51,7 @@ public class MyCollectorApiGetMangaStatesTest {
 
 	@Test
 	public void getMangaStatesTest() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitCurrentState();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		String jsonExpected = SimpleJSONFileReader.readFileAsString(PATH_EXPECTED_JSON_GET_MANGA_STATES);
@@ -62,7 +62,7 @@ public class MyCollectorApiGetMangaStatesTest {
 
 	@Test
 	public void getMangaStatesSortAlphabeticTest() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentStateToTestSortAlphabetic();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitCurrentStateToTestSortAlphabetic();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		String jsonExpected = SimpleJSONFileReader.readFileAsString(PATH_EXPECTED_JSON_GET_MANGA_STATES);
@@ -73,7 +73,7 @@ public class MyCollectorApiGetMangaStatesTest {
 
 	@Test
 	public void getMangaStatesSortByToReadTest() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentStateToTestSortByToRead();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitCurrentStateToTestSortByToRead();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		String jsonExpected = SimpleJSONFileReader.readFileAsString(PATH_EXPECTED_JSON_GET_MANGA_STATES_SORT_TO_READ);

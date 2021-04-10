@@ -1,5 +1,4 @@
 path:
-  resources: src/main/resources
   mangaimgurl: https://notImplementedURL.com
   mangaimgs:
     ajin: Ajin15.jpg
@@ -22,6 +21,8 @@ path:
   mangastate:
     currentstate: src/main/resources/mangaState.json
     lirescanstate: src/main/resources/lirescanState.json
+    lelscanstate: src/main/resources/lelscanState.json
+    mangareaderstate: src/main/resources/mangareaderState.json
     
 thread:
   minutesbeforenewupdate:
@@ -30,4 +31,6 @@ thread:
 url:
   mangawebsite:
     lirescan: https://www.lirescan.me/
+    lelscan: https://www.lelscan-vf.me/
+    mangareader: https://www.mangareader.net/
     

@@ -33,8 +33,6 @@ import com.nre.mycollector.utils.MangaStateUtils;
 @Service
 public class StateFileService {
 
-	//TODO not duplicated methods with MangaState & Release (maybe T?)
-
 	private StateFileService() {
 		//hidden
 	}

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.model.MangaWebSite;
 import com.nre.mycollector.model.Release;
 import com.nre.mycollector.model.SortingMangas;
 import com.nre.mycollector.service.mapper.StateMapper;
@@ -17,45 +18,43 @@ import com.nre.mycollector.utils.MangaStateUtils;
 public class UpdaterService {
 
 	private static final Logger LOGGER = LogManager.getLogger(UpdaterService.class.getName());
-	private final String urlMangaWebSite;
-	private final String pathCurrentStateWebSite;
+	private final MangaWebSite mangaWebSite;
 	private final String pathMyCurrentState;
 	private final MangaWebSiteParser parser;
 	private HttpService httpService;
 
-	public UpdaterService(final String urlMangaWebSite, final String pathCurrentStateWebSite,
-	    final String pathMyCurrentState, final MangaWebSiteParser parser, HttpService httpService) {
-		this.urlMangaWebSite = urlMangaWebSite;
-		this.pathCurrentStateWebSite = pathCurrentStateWebSite;
+	public UpdaterService(final MangaWebSite mangaWebSite, final String pathMyCurrentState,
+	    final MangaWebSiteParser parser, HttpService httpService) {
+		this.mangaWebSite = mangaWebSite;
 		this.pathMyCurrentState = pathMyCurrentState;
 		this.parser = parser;
 		this.httpService = httpService;
 	}
 
 	public void update() throws IOException {
-		String htmlContent = httpService.getContent(this.urlMangaWebSite);
+		String htmlContent = httpService.getContent(this.mangaWebSite.getUrl());
 
 		Map<Manga, Release> mapLatestReleases = parser.parse(htmlContent);
 
 		//TODO log debug
-		LOGGER.info("=== Web site latest state ===");
+		LOGGER.info("=== {} latest state ===", this.mangaWebSite.getName());
 		MangaStateUtils.printMapReleases(mapLatestReleases, LOGGER);
 
-		Map<Manga, Release> currentStateWebSite = StateFileService.readWebSiteStateSorted(pathCurrentStateWebSite);
-		LOGGER.info("=== Web site current state");
+		Map<Manga, Release> currentStateWebSite = StateFileService.readWebSiteStateSorted(this.mangaWebSite.getPathState());
+		LOGGER.info("=== {} current state", this.mangaWebSite.getName());
 		MangaStateUtils.printMapReleases(currentStateWebSite, LOGGER);
 
 		Map<Manga, Release> updatesWebSite = MangaStateUtils.getUpdatesWebSite(currentStateWebSite, mapLatestReleases);
 		if (!updatesWebSite.isEmpty()) {
 			//TODO stay info
-			LOGGER.info("=== Updates web site ===");
+			LOGGER.info("=== Updates {} ===", this.mangaWebSite.getName());
 			MangaStateUtils.printMapReleases(updatesWebSite, LOGGER);
 
 			currentStateWebSite = MangaStateUtils.updateWebSiteSorted(currentStateWebSite, updatesWebSite);
-			LOGGER.info("=== Web site current state after updated ===");
+			LOGGER.info("=== {} current state after updated ===", this.mangaWebSite.getName());
 			MangaStateUtils.printMapReleases(currentStateWebSite, LOGGER);
 
-			StateFileService.writeWebSiteState(currentStateWebSite, pathCurrentStateWebSite);
+			StateFileService.writeWebSiteState(currentStateWebSite, this.mangaWebSite.getPathState());
 
 			Map<Manga, MangaState> myCurrentStates = StateFileService.readCurrentState(this.pathMyCurrentState,
 			    SortingMangas.ALPHABETIC);

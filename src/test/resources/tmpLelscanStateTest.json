@@ -6,12 +6,12 @@
   },
   "ATTACK_ON_TITAN" : {
     "manga" : "ATTACK_ON_TITAN",
-    "number" : 133.0,
+    "number" : 131.0,
     "language" : "ENGLISH"
   },
   "BLACK_CLOVER" : {
     "manga" : "BLACK_CLOVER",
-    "number" : 267.0,
+    "number" : 265.0,
     "language" : "FRENCH"
   },
   "BORUTO" : {
@@ -21,17 +21,17 @@
   },
   "FAIRY_TAIL_100_Y" : {
     "manga" : "FAIRY_TAIL_100_Y",
-    "number" : 66.0,
+    "number" : 64.0,
     "language" : "ENGLISH"
   },
   "MHA" : {
     "manga" : "MHA",
-    "number" : 287.0,
+    "number" : 284.0,
     "language" : "FRENCH"
   },
   "ONE_PIECE" : {
     "manga" : "ONE_PIECE",
-    "number" : 991.0,
+    "number" : 990.0,
     "language" : "FRENCH"
   },
   "ONE_PUNCH_MAN" : {

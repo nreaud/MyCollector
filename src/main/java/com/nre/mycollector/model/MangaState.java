@@ -84,9 +84,9 @@ public class MangaState implements Comparable<MangaState> {
 	}
 
 	public MangaState updateToRead() {
-		int nbChapterstoRead = Math.round(lastAvailable - lastRead); //arrondi au dessus si chap 0.5
+		int nbChapterstoRead = Math.round(lastAvailable - lastRead); //rounded above if chapter in 0.5
 		toRead = (nbChapterstoRead == 1 && Language.atLeast(lastAvailableLanguage, Language.ENGLISH))
-		    || (nbChapterstoRead > 1);  //si 1 chapitre à lire, il faut au moins anglais
+		    || (nbChapterstoRead > 1);  //to read if language is at least ENGLISH
 		return this;
 	}
 

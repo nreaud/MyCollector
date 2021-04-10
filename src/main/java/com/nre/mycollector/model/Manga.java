@@ -8,21 +8,29 @@ package com.nre.mycollector.model;
  */
 public enum Manga {
   // Ordered by name
-	AJIN("Ajin"), ATTACK_ON_TITAN("Attack on Titan"), BLACK_CLOVER("Black Clover"), BORUTO("Boruto"),
-	CHAINSAW_MAN("Chainsaw man"), ENIGMA("Enigma"), FAIRY_TAIL_100_Y("Fairy tail 100 years quest"),
-	JUJUTSU_KAISEN("Jujutsu Kaisen"), MHA("My hero academia"), ONE_PIECE("One Piece"), ONE_PUNCH_MAN("One Punch Man"),
-	ONE_PUNCH_MAN_ONE("One Punch Man - One"), PLATINIUM_END("Platinium End"), SOLO_LEVELING("Solo leveling"),
-	THE_PROMISED_NEVERLAND("The Promised Neverland"), TOKYO_REVENGERS("Tokyo Revengers"), UNKNOWN("UNKNOWN"),
-	WORLD_TRIGGER("World Trigger");
+	AJIN(new String[] { "Ajin" }), ATTACK_ON_TITAN(new String[] { "Attack on Titan", "Shingeki no Kyojin" }),
+	BLACK_CLOVER(new String[] { "Black Clover" }), BORUTO(new String[] { "Boruto" }),
+	CHAINSAW_MAN(new String[] { "Chainsaw man" }), ENIGMA(new String[] { "Enigma" }),
+	FAIRY_TAIL_100_Y(new String[] { "Fairy tail 100 years quest" }), JUJUTSU_KAISEN(new String[] { "Jujutsu Kaisen" }),
+	MHA(new String[] { "My hero academia", "Boku No Hero Academia" }), ONE_PIECE(new String[] { "One Piece" }),
+	ONE_PUNCH_MAN(new String[] { "One Punch Man" }), ONE_PUNCH_MAN_ONE(new String[] { "One Punch Man - One" }),
+	PLATINIUM_END(new String[] { "Platinium End" }), SOLO_LEVELING(new String[] { "Solo leveling" }),
+	THE_PROMISED_NEVERLAND(new String[] { "The Promised Neverland" }),
+	TOKYO_REVENGERS(new String[] { "Tokyo Revengers" }), UNKNOWN(new String[] { "UNKNOWN" }),
+	WORLD_TRIGGER(new String[] { "World Trigger" });
 
-	private String name;
+	private String[] names;
 
-	private Manga(String name) {
-		this.name = name;
+	private Manga(String[] names) {
+		this.names = names;
 	}
 
-	public String getName() {
-		return this.name;
+	public String[] getNames() {
+		return this.names;
+	}
+
+	public String getMainName() {
+		return this.names[0];
 	}
 
 }

@@ -25,7 +25,7 @@ public class MangaService {
 			String mangaName = entry.getKey();
 			String img = entry.getValue();
 			Manga manga = SimpleMangaNameMapper.getMangaByConfName(mangaName);
-			return new Pair<>(manga, new MangaDTO(urlMangaImgs + img, manga.getName()));
+			return new Pair<>(manga, new MangaDTO(urlMangaImgs + img, manga.getMainName()));
 		}).collect(Collectors.toMap(pair -> pair.one, pair -> pair.two));
 	}
 

@@ -39,8 +39,6 @@ public class MyCollectorApi {
 		return true;
 	}
 
-	//TODO manga should be one resource with imgs, review getters
-
 	@GetMapping("/mangas")
 	public Map<Manga, MangaDTO> getMangas() {
 		//TODO - should be debug

@@ -1,6 +1,8 @@
 package com.nre.mycollector.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,10 +17,11 @@ import org.mockito.Mockito;
 import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
+import com.nre.mycollector.model.MangaWebSite;
 import com.nre.mycollector.model.Release;
 import com.nre.mycollector.model.SortingMangas;
 import com.nre.mycollector.service.parser.MangaWebSiteParser;
-import com.nre.mycollector.utils.MangaTestUtils;
+import com.nre.mycollector.utils.MangaTestsInitializer;
 
 public class UpdaterServiceTest {
 
@@ -31,10 +34,10 @@ public class UpdaterServiceTest {
 
 	@Before
 	public void initBeforeEach() throws IOException {
-		Map<Manga, MangaState> currentState = MangaTestUtils.getInitCurrentState();
+		Map<Manga, MangaState> currentState = MangaTestsInitializer.getInitCurrentState();
 		StateFileService.writeCurrentState(currentState, CURRENT_STATE);
 
-		Map<Manga, Release> lireScanState = MangaTestUtils.getInitLireScanState();
+		Map<Manga, Release> lireScanState = MangaTestsInitializer.getInitLireScanState();
 		StateFileService.writeWebSiteState(lireScanState, LIRESCAN_STATE);
 	}
 
@@ -49,7 +52,6 @@ public class UpdaterServiceTest {
 	@Test
 	public void updateTestOk() throws IOException {
 		//=== GIVEN ===
-		//TODO mock only http call
 		HttpService mockHttpService = Mockito.mock(HttpService.class);
 		Mockito.when(mockHttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
@@ -58,8 +60,8 @@ public class UpdaterServiceTest {
 		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleases());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser,
-		    mockHttpService);
+		UpdaterService updaterService = new UpdaterService(new MangaWebSite("lirescan", LIRESCAN_STATE, DUMMY_HTTPS),
+		    CURRENT_STATE, mockParser, mockHttpService);
 		updaterService.update();
 
 		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
@@ -70,11 +72,13 @@ public class UpdaterServiceTest {
 		assertEquals(Manga.AJIN, ajin.getManga());
 		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, ajin.getLastAvailableLanguage());
+		assertFalse(ajin.isToRead());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
 		assertEquals(252.5, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.SPOIL, bl.getLastAvailableLanguage());
+		assertTrue(bl.isToRead());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===
 		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
@@ -93,8 +97,7 @@ public class UpdaterServiceTest {
 	@Test
 	public void updateAndCreateNewManga() throws IOException {
 		//=== GIVEN ===
-		//TODO mock only http call
-		HttpService mockHttpService = Mockito.mock(HttpService.class); //power mockito to mock static methods
+		HttpService mockHttpService = Mockito.mock(HttpService.class);
 		Mockito.when(mockHttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
 		//TODO call really parser and test parser later when parser intelligent
@@ -102,8 +105,8 @@ public class UpdaterServiceTest {
 		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNewManga());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser,
-		    mockHttpService);
+		UpdaterService updaterService = new UpdaterService(new MangaWebSite("lirescan", LIRESCAN_STATE, DUMMY_HTTPS),
+		    CURRENT_STATE, mockParser, mockHttpService);
 		updaterService.update();
 
 		//=== CURRENT STATE JSON SHOULD BE UPDATED ===
@@ -114,16 +117,19 @@ public class UpdaterServiceTest {
 		assertEquals(Manga.AJIN, ajin.getManga());
 		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
+		assertFalse(ajin.isToRead());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
 		assertEquals(252, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
+		assertFalse(bl.isToRead());
 
 		MangaState wt = stateAfterUpdate.get(Manga.WORLD_TRIGGER);
 		assertEquals(Manga.WORLD_TRIGGER, wt.getManga());
 		assertEquals(197, wt.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, wt.getLastAvailableLanguage());
+		assertTrue(wt.isToRead());
 
 		//=== LIRESCAN JSON SHOULD ALSO BE UPDATED ===
 		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
@@ -146,7 +152,6 @@ public class UpdaterServiceTest {
 
 	@Test
 	public void shouldNotUpdate() throws IOException {
-		//TODO mock only http call
 		HttpService mockHttpService = Mockito.mock(HttpService.class); //power mockito to mock static methods
 		Mockito.when(mockHttpService.getContent(DUMMY_HTTP)).thenReturn(dummyHtmlContent);
 
@@ -155,8 +160,8 @@ public class UpdaterServiceTest {
 		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesNoUpdates());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTP, LIRESCAN_STATE, CURRENT_STATE, mockParser,
-		    mockHttpService);
+		UpdaterService updaterService = new UpdaterService(new MangaWebSite("lirescan", LIRESCAN_STATE, DUMMY_HTTP),
+		    CURRENT_STATE, mockParser, mockHttpService);
 		updaterService.update();
 
 		//=== EXPECT ===
@@ -167,11 +172,13 @@ public class UpdaterServiceTest {
 		assertEquals(Manga.AJIN, ajin.getManga());
 		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
+		assertFalse(ajin.isToRead());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
 		assertEquals(252, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
+		assertFalse(bl.isToRead());
 
 		//=== LIRESCAN JSON SHOULD NOT BE UPDATED EITHER ===
 		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);
@@ -190,7 +197,6 @@ public class UpdaterServiceTest {
 
 	@Test
 	public void shouldOnlyUpdateLireScan() throws IOException {
-		//TODO mock only http call
 		HttpService mockHttpService = Mockito.mock(HttpService.class); //power mockito to mock static methods
 		Mockito.when(mockHttpService.getContent(DUMMY_HTTPS)).thenReturn(dummyHtmlContent);
 
@@ -199,8 +205,8 @@ public class UpdaterServiceTest {
 		Mockito.when(mockParser.parse(dummyHtmlContent)).thenReturn(getMapReleasesUpdateLireScanOnly());
 
 		//=== WHEN ===
-		UpdaterService updaterService = new UpdaterService(DUMMY_HTTPS, LIRESCAN_STATE, CURRENT_STATE, mockParser,
-		    mockHttpService);
+		UpdaterService updaterService = new UpdaterService(new MangaWebSite("lirescan", LIRESCAN_STATE, DUMMY_HTTPS),
+		    CURRENT_STATE, mockParser, mockHttpService);
 		updaterService.update();
 
 		//=== EXPECT ===
@@ -211,11 +217,13 @@ public class UpdaterServiceTest {
 		assertEquals(Manga.AJIN, ajin.getManga());
 		assertEquals(77, ajin.getLastAvailable(), DELTA);
 		assertEquals(Language.ENGLISH, ajin.getLastAvailableLanguage());
+		assertFalse(ajin.isToRead());
 
 		MangaState bl = stateAfterUpdate.get(Manga.BLACK_CLOVER);
 		assertEquals(Manga.BLACK_CLOVER, bl.getManga());
 		assertEquals(252, bl.getLastAvailable(), DELTA);
 		assertEquals(Language.FRENCH, bl.getLastAvailableLanguage());
+		assertFalse(bl.isToRead());
 
 		//=== LIRESCAN JSON SHOULD BE UPDATED ===
 		Map<Manga, Release> lirescanState = StateFileService.readWebSiteState(LIRESCAN_STATE);

@@ -8,7 +8,7 @@ import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
 import com.nre.mycollector.model.Release;
 
-public class MangaTestUtils {
+public class MangaTestsInitializer {
 
 	public static Map<Manga, MangaState> getInitCurrentState() {
 		Map<Manga, MangaState> res = new HashMap<>();

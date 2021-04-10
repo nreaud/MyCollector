@@ -1,0 +1,52 @@
+{
+  "ATTACK_ON_TITAN" : {
+    "manga" : "ATTACK_ON_TITAN",
+    "number" : 133.0,
+    "language" : "ENGLISH"
+  },
+  "BLACK_CLOVER" : {
+    "manga" : "BLACK_CLOVER",
+    "number" : 267.0,
+    "language" : "SPOIL"
+  },
+  "BORUTO" : {
+    "manga" : "BORUTO",
+    "number" : 50.0,
+    "language" : "FRENCH"
+  },
+  "CHAINSAW_MAN" : {
+    "manga" : "CHAINSAW_MAN",
+    "number" : 88.0,
+    "language" : "RAW"
+  },
+  "FAIRY_TAIL_100_Y" : {
+    "manga" : "FAIRY_TAIL_100_Y",
+    "number" : 66.0,
+    "language" : "ENGLISH"
+  },
+  "JUJUTSU_KAISEN" : {
+    "manga" : "JUJUTSU_KAISEN",
+    "number" : 124.0,
+    "language" : "FRENCH"
+  },
+  "MHA" : {
+    "manga" : "MHA",
+    "number" : 287.0,
+    "language" : "RAW"
+  },
+  "SOLO_LEVELING" : {
+    "manga" : "SOLO_LEVELING",
+    "number" : 122.0,
+    "language" : "FRENCH"
+  },
+  "THE_PROMISED_NEVERLAND" : {
+    "manga" : "THE_PROMISED_NEVERLAND",
+    "number" : 182.0,
+    "language" : "ENGLISH"
+  },
+  "TOKYO_REVENGERS" : {
+    "manga" : "TOKYO_REVENGERS",
+    "number" : 177.0,
+    "language" : "FRENCH"
+  }
+}

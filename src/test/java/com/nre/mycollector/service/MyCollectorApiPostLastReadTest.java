@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.nre.mycollector.model.Language;
 import com.nre.mycollector.model.Manga;
 import com.nre.mycollector.model.MangaState;
-import com.nre.mycollector.utils.MangaTestUtils;
+import com.nre.mycollector.utils.MangaTestsInitializer;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(MyCollectorApi.class)
@@ -49,7 +49,7 @@ public class MyCollectorApiPostLastReadTest {
 
 	@Test
 	public void lastReadTest() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitCurrentState();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/252").contentType(MediaType.APPLICATION_JSON))
@@ -61,7 +61,7 @@ public class MyCollectorApiPostLastReadTest {
 
 	@Test
 	public void lastReadOldChapter() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitCurrentState();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/27").contentType(MediaType.APPLICATION_JSON))
@@ -74,7 +74,7 @@ public class MyCollectorApiPostLastReadTest {
 
 	@Test
 	public void lastReadNotAvailableYet() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitCurrentState();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitCurrentState();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		mvc.perform(post("/mangaStates/BLACK_CLOVER/lastRead/253").contentType(MediaType.APPLICATION_JSON))
@@ -87,7 +87,7 @@ public class MyCollectorApiPostLastReadTest {
 
 	@Test
 	public void chaptersReadButSomeLeftToRead() throws Exception {
-		Map<Manga, MangaState> initState = MangaTestUtils.getInitStatePostLastReadButSomeLeftToRead();
+		Map<Manga, MangaState> initState = MangaTestsInitializer.getInitStatePostLastReadButSomeLeftToRead();
 		StateFileService.writeCurrentState(initState, CURRENT_STATE);
 
 		mvc.perform(post("/mangaStates/SOLO_LEVELING/lastRead/50").contentType(MediaType.APPLICATION_JSON))

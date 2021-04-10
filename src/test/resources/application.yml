@@ -1,5 +1,4 @@
 path:
-  resources: src/test/resources
   mangaimgurl: someMangaImgTestUrl
   mangaimgs:
     ajin: AjinTest15.png
